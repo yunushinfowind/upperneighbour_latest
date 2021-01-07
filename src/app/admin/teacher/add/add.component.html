@@ -1,0 +1,142 @@
+
+        <div class="content-wrapper">
+            <section class="content-header">
+                <div class="container-fluid">
+                    <div class="row mb-2">
+                        <div class="col-sm-6">
+                            <h1>Add Artist Form</h1>
+                        </div>
+                        <div class="col-sm-6">
+                            <ol class="breadcrumb float-sm-right">
+                                <li class="breadcrumb-item"><a routerLink="/admin/artist/list">Artist</a></li>
+                                <li class="breadcrumb-item active">add</li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section class="content">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-md-10">
+
+                            <div class="card card-primary">
+                                <div class="card-header">
+                                    <h3 class="card-title">Add Artist</h3>
+                                </div>
+                                <div class="card-body">
+                                    <form #teacherForm="ngForm" (ngSubmit)="teacherSubmit(teacherForm)">
+                                        <div class="form-group">
+                                            <label>Fullname:</label>
+                                            <input type="text" required name="fullname" [(ngModel)]="model.fullname" #fullname="ngModel" class="form-control" placeholder="full Name">
+                                            <div class="alert-danger" *ngIf="(fullname.touched && !fullname.valid)||(teacherForm.submitted && !fullname.valid)">
+                                                <div *ngIf="fullname.errors.required">Title is required.</div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Profession:</label>
+                                            <input type="text" required name="profession" [(ngModel)]="model.profession" #profession="ngModel" class="form-control" placeholder="profession">
+                                            <div class="alert-danger" *ngIf="(profession.touched && !profession.valid)||(teacherForm.submitted && !profession.valid)">
+                                                <div *ngIf="profession.errors.required">Profession is required.</div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Address:</label>
+                                            <input type="text" required name="address" [(ngModel)]="model.address" #address="ngModel" class="form-control" placeholder="address">
+                                            <div class="alert-danger" *ngIf="(address.touched && !address.valid)||(teacherForm.submitted && !address.valid)">
+                                                <div *ngIf="address.errors.required">Address is required.</div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>About:</label>
+                                            <textarea  required name="history" [(ngModel)]="model.history" #history="ngModel" class="form-control">.</textarea>
+                                            <div class="alert-danger" *ngIf="(history.touched && !history.valid)||(teacherForm.submitted && !history.valid)">
+                                                <div *ngIf="history.errors.required">About is required.</div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Career Highlight:</label>
+                                            <textarea  required name="career_highlight" [(ngModel)]="model.career_highlight" #career_highlight="ngModel" class="form-control">.</textarea>
+                                            <div class="alert-danger" *ngIf="(career_highlight.touched && !career_highlight.valid)||(teacherForm.submitted && !career_highlight.valid)">
+                                                <div *ngIf="career_highlight.errors.required">Career highlight is required.</div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Kryptonite:</label>
+                                            <input type="text" required name="key_point" [(ngModel)]="model.key_point" #key_point="ngModel" class="form-control" placeholder="key point">
+                                            <div class="alert-danger" *ngIf="(key_point.touched && !key_point.valid)||(teacherForm.submitted && !key_point.valid)">
+                                                <div *ngIf="key_point.errors.required">key point is required.</div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Memorable Performance:</label>
+                                            <input type="text" required name="performance" [(ngModel)]="model.performance" #performance="ngModel" class="form-control" placeholder="performance">
+                                            <div class="alert-danger" *ngIf="(performance.touched && !performance.valid) ||(teacherForm.submitted && !performance.valid)">
+                                                <div *ngIf="performance.errors.required">Performance is required.</div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="row justify-content-center mb-3">
+                                             </div>
+
+                                        </div>
+                                        <!-- <div class="example">
+                                            <h2>WYSIWYG</h2>
+                                            <form><textarea rows="5" class="emojis-wysiwyg">Hello :neckbeard:</textarea></form>
+                                            <h3>Value:</h3>
+                                            <div class="value"><pre id="emojis-wysiwyg-value"></pre></div>
+                                        </div> -->
+                                        <div class="bootstrap-timepicker">
+                                            <!-- <img [src]="imageSrc" *ngIf="imageSrc" style="height: 100px; width:100px"> -->
+                                            <div class="form-group">
+                                                <label>Profile:</label>
+                                                <div class="input-group date">
+                                                    <input  accept="image/*"  type="file" class="form-control" (change)="onFileChange($event)"
+                                                       />
+                                                </div>
+                                                <div class="alert-danger" *ngIf="teacherForm.submitted && !model.profile">
+                                                    <div >Profile is required.</div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                
+                                                <label>Emojis:</label>
+                                                <div class="form-emoji-div">
+                                                    <div class="emoji-menu" style="top:38px; left:0px; margin: 0;">
+                                                        <ul class="group-selector">
+                                                            <li>
+                                                                <a (click)="openEmoji()" class="tab_switch">
+                                                                    <i class="icon-smile"></i>
+                                                                </a>
+                                                            </li>
+                                                        </ul>
+                                                        <div>
+                                                            <div  style="display: none;" class="select_group" group="0" id="group_0">
+                                                                <a *ngFor="let emoji of emojiList" id="emoji_{{emoji.id}}" (click)="getEmojiUrl(emoji.id)" href="javascript:void(0)" title=":bowtie:"><img src="{{emoji.emoji_url}}" alt=":bowtie:"><span class="label">:bowtie:</span></a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div  contentEditable="true"  class="form-control emoji-area" id="emoji-area"></div>
+                                                    <div class="alert-danger" *ngIf="teacherForm.submitted && !model.emojis.length">
+                                                        <div >Emoji is required.</div>
+                                                    </div>
+                                                    <!-- <div class="alert-danger" *ngIf="(emojis.touched && !emojis.valid)||(teacherForm.submitted && !emojis.valid)">
+                                                        <div *ngIf="emojis.errors.required">Career highlight is required.</div>
+                                                    </div> -->
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <button type="submit" [class.disabled]="!teacherForm.valid" class="btn btn-primary">Save
+                                                <span *ngIf="showLoader"> <i class="fas fa-sync fa-spin"></i></span>
+                                            </button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+       

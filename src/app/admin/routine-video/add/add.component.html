@@ -1,0 +1,111 @@
+
+        <div class="content-wrapper">
+            <section class="content-header">
+                <div class="container-fluid">
+                    <div class="row mb-2">
+                        <div class="col-sm-6">
+                            <h1>Add Routine Video Form</h1>
+                        </div>
+                        <div class="col-sm-6">
+                            <ol class="breadcrumb float-sm-right">
+                                <li class="breadcrumb-item"><a [routerLink]="['/admin/routine-video/list',routine_id , user_id]">Routine Video list</a></li>
+                                <li class="breadcrumb-item active">add</li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section class="content">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="card card-primary">
+                                <div class="card-header">
+                                    <h3 class="card-title">Add Routine Video</h3>
+                                </div>
+                                <div class="card-body">
+                                    <form [formGroup]="productForm" (ngSubmit)="onSubmit()">
+                                        <p>
+                                          <label for="name">Routine Name:</label>
+                                          <input type="text" readonly id="name" value="{{model.routine_name}}"  class="form-control">
+                                        </p>
+                                      
+                                        <table class="table table-bordered" formArrayName="quantities">
+                                          <tr>
+                                            <th colspan="3">Add Multiple Video:</th>
+                                            <th width="150px"><button type="button" (click)="addQuantity()" class="btn btn-sm btn-primary">Add Field</button></th>
+                                          </tr>
+                                          <tr *ngFor="let quantity of quantities().controls; let i=index" [formGroupName]="i">
+                                            <td>
+                                                Video Title :
+                                                <input type="text" formControlName="video_title" class="text-row form-control">
+                                                <div *ngIf="submitted && quantity.controls.video_title.errors">
+                                                    <div class="alert-danger" *ngIf="quantity.controls.video_title.errors.required">Video title is required</div>
+                                                </div>
+                                               
+                                            </td>
+                                            <td>
+                                                Video Description :
+                                                <textarea formControlName="video_description"  class="text-row form-control"></textarea>
+                                                <div *ngIf="submitted && quantity.controls.video_description.errors">
+                                                    <div class="alert-danger" *ngIf="quantity.controls.video_description.errors.required">Description is required</div>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div ng-init="video_type=video" class="mb-2">
+                                                    <div class="form-check">
+                                                        <input type="radio" class="form-check-input" id="video_type" formControlName="video_type" value="video" (change)="onTypeChange($event,i)">
+                                                        <label class="form-check-label" for="">Video</label>
+                                                    </div>
+                                                    <div class="form-check">
+                                                        <input type="radio" class="form-check-input" id="embed_url" formControlName="video_type" value="embed_url" (change)="onTypeChange($event,i)" required="required">
+                                                        <label class="form-check-label" for="">Embed Url</label>
+                                                    </div>
+                                                    <div *ngIf="submitted && quantity.controls.video_type.errors">
+                                                        <div class="alert-danger" *ngIf="quantity.controls.video_type.errors.required">Video type is required</div>
+                                                    </div>
+                                                </div>
+                                                <span id="video_div_{{i}}" >
+                                                    <div class="form-group">
+                                                        <label>Video:</label>
+                                                        <input type="file" accept="video/*" formControlName="video" (change)="onFileChange($event,i)"  class="form-control add-video">
+                                                        <div *ngIf="submitted && quantity.controls.video.errors">
+                                                            <div class="alert-danger" *ngIf="quantity.controls.video.errors.required">Video is required</div>
+                                                        </div>
+                                                    </div>
+                                                </span>
+                                                <span id="embed_url_div_{{i}}">
+                                                    <div class="form-group">
+                                                        <label>Video Embed url:</label>
+                                                        <input type="url"  formControlName="video_url" class="form-control add-video" placeholder="Enter embed url">
+                                                        <div *ngIf="submitted && quantity.controls.video_url.errors">
+                                                            <div class="alert-danger" *ngIf="quantity.controls.video_url.errors.required">Embed url is required</div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label>Video Thumb:</label>
+                                                        <input type="file" class="form-control add-video" (change)="onFileChange($event,i)" formControlName="thumb">
+                                                        <div *ngIf="submitted && quantity.controls.thumb.errors">
+                                                            <div class="alert-danger" *ngIf="quantity.controls.thumb.errors.required">Thumb is required</div>
+                                                        </div>
+                                                    </div>
+                                                </span>
+                                                
+                                             </td>
+                                            <td>
+                                                <button (click)="removeQuantity(i)" class="btn btn-sm btn-danger">Remove</button>
+                                            </td>
+                                          </tr>
+                                        </table>
+                                       
+                                        <button id="submit_button" type="submit" class="btn btn-primary">Submit<span id="loader_submit" style="display: none;"> <i
+                                            class="fas fa-sync fa-spin"></i></span></button>
+                                      </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+       
