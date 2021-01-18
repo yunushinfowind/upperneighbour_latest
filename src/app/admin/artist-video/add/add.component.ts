@@ -22,19 +22,19 @@ export class AddComponent implements OnInit {
     user_id: '',
     video: '',
     artist_name: '',
-    video_url:'',
-    video_type:''
+    video_url: '',
+    video_type: ''
   }
   imageSrc: any;
   showLoader: boolean = false;
   artistList: any;
   user_id: any;
   routine_id: any;
-  
+
   productForm: FormGroup;
   submitted = false;
   videos: any = [];
-  thumb: any = [];
+  thumbs: any = [];
 
   constructor(private fb: FormBuilder, private activatedRoute: ActivatedRoute, private toastr: ToastrService, private artistVideoService: ArtistVideoService, private router: Router, private teacherService: TeacherService) {
     this.productForm = this.fb.group({
@@ -62,11 +62,11 @@ export class AddComponent implements OnInit {
     return this.fb.group({
       video_title: ['', Validators.required],
       video_description: ['', [Validators.required]],
-      video_type:['', [Validators.required]],
+      video_type: ['', [Validators.required]],
       //video: ['', [Validators.required]],
       video_url: [""],
       thumb: [""],
-      video : [""],
+      video: [""],
     })
   }
 
@@ -84,33 +84,33 @@ export class AddComponent implements OnInit {
     console.log(e)
   }
 
-    onTypeChange(event,i){
-   if(event.target.value=="video"){
-    
-    this.productForm.controls.quantities['controls'][i].get('video').setValidators(Validators.required)
-    this.productForm.controls.quantities['controls'][i].get('video').updateValueAndValidity()
+  onTypeChange(event, i) {
+    if (event.target.value == "video") {
 
-    this.productForm.controls.quantities['controls'][i].get('video_url').clearValidators();
-    this.productForm.controls.quantities['controls'][i].get('video_url').updateValueAndValidity()
+      this.productForm.controls.quantities['controls'][i].get('video').setValidators(Validators.required)
+      this.productForm.controls.quantities['controls'][i].get('video').updateValueAndValidity()
 
-    this.productForm.controls.quantities['controls'][i].get('thumb').clearValidators();
-    this.productForm.controls.quantities['controls'][i].get('thumb').updateValueAndValidity()
-    $("#embed_url_div_"+i+"").hide();
-    $("#video_div_"+i+"").show();
-      
-   }
-   if(event.target.value=="embed_url"){
-    this.productForm.controls.quantities['controls'][i].get('video').clearValidators();
-   this.productForm.controls.quantities['controls'][i].get('video').updateValueAndValidity()
-    
-    this.productForm.controls.quantities['controls'][i].get('video_url').setValidators(Validators.required)
-    this.productForm.controls.quantities['controls'][i].get('video_url').updateValueAndValidity()
+      this.productForm.controls.quantities['controls'][i].get('video_url').clearValidators();
+      this.productForm.controls.quantities['controls'][i].get('video_url').updateValueAndValidity()
 
-    this.productForm.controls.quantities['controls'][i].get('thumb').setValidators(Validators.required)
-    this.productForm.controls.quantities['controls'][i].get('thumb').updateValueAndValidity()
-    
-      $("#video_div_"+i+"").hide();
-      $("#embed_url_div_"+i+"").show();
+      this.productForm.controls.quantities['controls'][i].get('thumb').clearValidators();
+      this.productForm.controls.quantities['controls'][i].get('thumb').updateValueAndValidity()
+      $("#embed_url_div_" + i + "").hide();
+      $("#video_div_" + i + "").show();
+
+    }
+    if (event.target.value == "embed_url") {
+      this.productForm.controls.quantities['controls'][i].get('video').clearValidators();
+      this.productForm.controls.quantities['controls'][i].get('video').updateValueAndValidity()
+
+      this.productForm.controls.quantities['controls'][i].get('video_url').setValidators(Validators.required)
+      this.productForm.controls.quantities['controls'][i].get('video_url').updateValueAndValidity()
+
+      this.productForm.controls.quantities['controls'][i].get('thumb').setValidators(Validators.required)
+      this.productForm.controls.quantities['controls'][i].get('thumb').updateValueAndValidity()
+
+      $("#video_div_" + i + "").hide();
+      $("#embed_url_div_" + i + "").show();
     }
   }
 
@@ -126,40 +126,64 @@ export class AddComponent implements OnInit {
     const reader = new FileReader();
     if (event.target.files.length > 0) {
       const file = event.target.files[0];
+      var type = file.name.split('?')[0].split('.').pop();
+      var re = /(\.WMV|\.mp4|\.MOV)$/i;
+      if (!re.exec(file.name)) {
+        this.toastr.error('Sorry , Please upload video file')
+        return 
+      }
+      else {
+        if (event.target.files.length > 0) {
+          const file = event.target.files[0];
+          let data = {
+            index: i,
+            file: file
+          }
+          this.videos[i] = file;
+        }
+      }
+    }
+  }
+
+  onFileThumbChange(event, i) {
+    const reader = new FileReader();
+    if (event.target.files.length > 0) {
+      const file = event.target.files[0];
+      var size = event.target.files[0].size / 1000 / 1000;
+      size = Math.round(size * 10) / 10
       let data = {
         index: i,
         file: file
       }
       this.videos[i] = file;
+      console.log('thumb image:')
+      console.log(this.thumbs[i])
     }
   }
 
- /* onThumbChange(event, i) {
-    const reader = new FileReader();
-    if (event.target.files.length > 0) {
-      const file = event.target.files[0];
-      let data = {
-        index: i,
-        file: file
-      }
-      this.thumb[i] = file;
-    }
-  }
-*/
+  /* onThumbChange(event, i) {
+     const reader = new FileReader();
+     if (event.target.files.length > 0) {
+       const file = event.target.files[0];
+       let data = {
+         index: i,
+         file: file
+       }
+       this.thumb[i] = file;
+     }
+   }
+ */
 
   onGetUserId(userId) {
     this.model.user_id = userId;
   }
 
   onSubmit() {
-    
+
     this.submitted = true;
     var data = this.productForm.value.quantities;
     var formLength = this.productForm.value.quantities.length;
-    // if(!formLength){
-    //   this.toastr.error('Please '); 
-    // }
-    console.log(data)
+ 
     if (formLength > 0) {
       var allFormData = [];
       let total_form: FormData[] = [];
@@ -171,7 +195,7 @@ export class AddComponent implements OnInit {
           "user_id": this.user_id,
           "routine_id": this.routine_id,
           "embed_url": data[i].video_url,
-          "video_type":data[i].video_type
+          "video_type": data[i].video_type
         }
         console.log(postData);
         formData.append('data[]', JSON.stringify(postData));
@@ -180,6 +204,8 @@ export class AddComponent implements OnInit {
       }
 
       if (!this.productForm.invalid) {
+        $('#remove_field_button').prop('disabled', true);
+        $('#add_field_button').prop('disabled', true);
         $('#loader_submit').show();
         this.artistVideoService.addArtistVideo(formData).subscribe(result => {
           if (result.success) {
@@ -187,9 +213,7 @@ export class AddComponent implements OnInit {
             this.toastr.success(result.message);
             $('#loader_submit').hide();
             $('#submit_button').attr('disabled', 'false');
-            setTimeout(function(){
-              this.router.navigate(['/admin/artist-video/list/'+this.user_id]);
-            },1000)
+            this.router.navigate(['/admin/artist-video/list/' + this.user_id]);
           } else {
             this.toastr.error(result.message)
           }

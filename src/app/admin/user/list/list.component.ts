@@ -11,7 +11,7 @@ import { UserServiceService } from '../user-service.service';
 })
 
 export class ListComponent implements OnInit {
-  items = [];
+
   List: any;
   total: any;
   per_page: any;
@@ -19,6 +19,7 @@ export class ListComponent implements OnInit {
   // dtOptions: DataTables.Settings = {};
   showLoader: boolean = true;
   checkedStatus : boolean = false;
+  items = [];
   pageOfItems: Array<any>;
   constructor(private userService: UserServiceService, private toastr: ToastrService) { }
 
@@ -61,7 +62,7 @@ export class ListComponent implements OnInit {
       this.userService.deleteTeacher(id).subscribe(
         result => {
           if (result.success == true) {
-            this.toastr.success(result.message);
+            this.toastr.success('User deleted successfully.');
             $('#row_' + id).remove();
           }
         },
@@ -101,4 +102,7 @@ export class ListComponent implements OnInit {
     $('.table_search').val('');
     this.teacherList(1);
   }
+  // getCurrentList(){
+  //   console.log('current List')
+  // }
 }

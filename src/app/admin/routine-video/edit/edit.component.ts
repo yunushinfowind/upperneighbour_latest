@@ -88,7 +88,7 @@ export class EditComponent implements OnInit {
         if (result.success) {
           this.showLoader = false;
           this.toastr.success(result.message);
-          // this.router.navigate(['/admin/routine-video/list',this.routine_id , this.user_id])
+          this.router.navigate(['/admin/routine-video/list',this.routine_id , this.user_id])
         } else {
           this.toastr.error(result.message)
         }

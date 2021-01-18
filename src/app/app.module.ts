@@ -24,10 +24,15 @@ import { SafePipe } from './pipesafe/pipesafe.component';
 import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.component';
 import { JwPaginationModule } from 'jw-angular-pagination';
 import { RouterModule } from '@angular/router';
+import { NgxPaginationModule } from 'ngx-pagination';
+import {DragDropModule} from '@angular/cdk/drag-drop';
+import {MatButtonModule} from '@angular/material/button';
+import { TestDragComponent } from './test-drag/test-drag.component';
+import {MatCheckboxModule} from '@angular/material/checkbox';
 
 @NgModule({
   declarations: [
-    AppComponent , LoginComponent, HeaderComponent, FooterComponent, SidebarComponent , ForgotPasswordComponent, PrivacyPolicyComponent
+    AppComponent , LoginComponent, HeaderComponent, FooterComponent, SidebarComponent , ForgotPasswordComponent, PrivacyPolicyComponent, TestDragComponent
   ],
   imports: [
     BrowserModule,
@@ -47,7 +52,12 @@ import { RouterModule } from '@angular/router';
     PickerModule,
     EmojiModule,
     JwPaginationModule,
-    RouterModule
+    RouterModule,
+    NgxPaginationModule,
+    DragDropModule,
+    DragDropModule,
+    MatButtonModule,
+    MatCheckboxModule
    
   ],
   providers: [GuestService,LoginGuardService,

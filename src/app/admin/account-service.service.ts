@@ -16,6 +16,18 @@ export class AccountServiceService {
     this.baseUrl = environment.baseUrl;
   }
 
+  checkCurrentPassWord(curentPass: any) {
+    const formData = new FormData()
+    formData.append('current_password', curentPass);
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/x-www-form-urlencoded'
+    });
+    const result = this.httpclient.post(this.baseUrl + '/admin/check-admin-password', formData);
+    return result.pipe(map((response: any) => {
+      return response;
+    }));
+  }
+
   changPassWord(changePassword: any) {
 
     console.log(changePassword);

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { SettingService } from '../setting.service';
-import { FormGroup, FormControl, FormArray, FormBuilder, Validators } from '@angular/forms'
+import { FormGroup, FormControl, FormArray, FormBuilder, Validators, NgForm } from '@angular/forms'
 
 @Component({
   selector: 'app-edit',
@@ -12,8 +12,8 @@ import { FormGroup, FormControl, FormArray, FormBuilder, Validators } from '@ang
 export class EditComponent implements OnInit {
 
   public model = {
-    routine_name: '',
-    routine_description: '',
+    slice_user_name: '',
+    slice_password: '',
     routine_level: '',
     user_id: '',
     video: ''
@@ -34,73 +34,15 @@ export class EditComponent implements OnInit {
     this.settingList();
   }
 
-  quantities(): FormArray {
-    return this.List
-  }
-
-
-  newQuantity(): FormGroup {
-    return this.fb.group({
-      key_value: ['', Validators.required],
-      value: ['', [Validators.required]]
-    })
-  }
-
-  addQuantity() {
-    this.quantities().push(this.newQuantity());
-  }
-
-  removeQuantity(i: number) {
-    this.quantities().removeAt(i);
-  }
-
-  onSubmit(f:any) {
-    
-    var data = this.productForm.value.quantities;
-    console.log(this.productForm);
-    // var formLength = this.productForm.value.quantities.length;
-    // // if(!formLength){
-    // //   this.toastr.error('Please '); 
-    // // }
-    // if (formLength > 0) {
-    //   console.log(data[0])
-    //   var allFormData = [];
-    //   let total_form: FormData[] = [];
-    //   var formData = new FormData();
-    //   for (let i = 0; i < formLength; i++) {
-    //     // let postData = {
-    //     //   "video_title": data[i].video_title,
-    //     //   "video_description": data[i].video_description,
-    //     //   "user_id": this.user_id,
-    //     //   "routine_id": this.routine_id
-    //     // }
-    //     formData.append('data[]', JSON.stringify(postData));
-    //   }
-
-    //   if (!this.productForm.invalid) {
-    //     $('#loader_submit').show();
-    //     $('#submit_button').attr('disabled', 'true');
-    //     this.settingService.updateSetting(formData).subscribe(result => {
-    //       if (result.success) {
-    //         this.toastr.success(result.message);
-    //       } else {
-    //         this.toastr.error(result.message)
-    //       }
-    //     }
-    //     )
-    //   }
-    // } else {
-    //   this.toastr.error('Please add form')
-    // }
-    // console.log(allFormData);
-  }
-
+  
   settingList() {
    
     this.settingService.getSettings().subscribe(
       result => {
         if (result.success == true) {
           this.List = result.data;
+          this.model.slice_user_name = result.data[0].value;
+          this.model.slice_password = result.data[1].value;
           console.log('this.List')
           console.log(this.List)
         }
@@ -110,4 +52,34 @@ export class EditComponent implements OnInit {
       }
     )
   }
+
+  settingSubmit(f: NgForm){
+    if (f.valid) {
+      const formData = new FormData();
+      formData.append('slice_user_name', this.model.slice_user_name);
+      formData.append('slice_password', this.model.slice_password);
+      console.log(this.model.slice_user_name)
+      var settingData = [
+        {
+          key : 'slice_user_name',
+          value : this.model.slice_user_name
+        },
+        { key : 'slice_password',
+          value : this.model.slice_password
+        }
+      ]
+      formData.append('settings[]', JSON.stringify(settingData));
+      this.settingService.updateSetting(formData).subscribe(result => {
+        if (result.success) {
+          // this.showLoader = false;
+          this.toastr.success('Setting updated successfully.');
+        } else {
+          this.toastr.error(result.message)
+        }
+      }
+      )
+      
+    }
+  }
+
 }

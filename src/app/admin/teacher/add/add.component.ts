@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit } from '@angular/core';
 import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { NgForm } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
@@ -32,19 +32,17 @@ export class AddComponent implements OnInit {
   addscript : boolean = false;
   emojiList:any;
 
+
   public Editor = ClassicEditor;
-  constructor(private emojiScript: EmojiScriptServiceService , private toastr: ToastrService, private teacherService: TeacherService, private router: Router) { }
-
-  
-  ngAfterViewInit(): void {
-
-
-}
+  constructor(private elementRef:ElementRef , private emojiScript: EmojiScriptServiceService , private toastr: ToastrService, private teacherService: TeacherService, private router: Router) { }
 
   ngOnInit(): void {
     this.getEmojiList();
   }
-
+  ngAfterViewInit() {
+    // assume dynamic HTML was added before
+    this.elementRef.nativeElement.querySelector('span').addEventListener('click', this.removeEmoji.bind(this));
+  }
  
   openEmoji() {
     console.log('inn')
@@ -55,16 +53,46 @@ export class AddComponent implements OnInit {
    }
    
   }
+
   getEmojiUrl(id:any){
     $('#emoji_'+id).attr('href');
     console.log($('#emoji_'+id + '> img').attr('src'));
     var emoji = $('#emoji_'+id + '> img').attr('src');
     this.model.emojis.push(emoji);
-    var textarea = $('.emoji-area');
     var image = new Image();
     image.width = 25;
-    image.src = emoji,
-    document.getElementById('emoji-area').appendChild(image);
+    image.id = 'img_'+id;
+    image.src = emoji;
+    var g = document.createElement('div');
+    g.setAttribute("id", "div"+id);
+    g.setAttribute("class", "artist-collection-photo");
+    var button = document.createElement('span');
+    button.setAttribute("class", "close")
+    button.innerHTML = "X"
+    button.addEventListener('click', (e) => {
+      this.removeEmoji(id);
+     });
+    g.appendChild(button)
+    g.appendChild(image)
+    document.getElementById('emoji-area').appendChild(g);
+    console.log(this.model.emojis)
+  }
+  
+ 
+
+  public removeEmoji(id)
+  {
+    var removeSrc = $('#img_'+id).attr('src');
+    console.log(removeSrc)
+    var totalArray = this.model.emojis;
+    var index = totalArray.indexOf(removeSrc);
+    console.log(index)
+    if (index > -1) {
+      totalArray.splice(index, 1);
+    }
+    $('#img_'+id).parent().remove();
+    console.log("ID:"+id)
+    console.log(totalArray)
   }
 
   getEmojiList(){
@@ -100,7 +128,7 @@ export class AddComponent implements OnInit {
         if (result.success) {
           this.showLoader = false;
           this.toastr.success(result.message);
-          // this.router.navigateByUrl('/admin/artist/list')
+          this.router.navigateByUrl('/admin/artist/list')
         } else {
           this.toastr.error(result.message)
         }

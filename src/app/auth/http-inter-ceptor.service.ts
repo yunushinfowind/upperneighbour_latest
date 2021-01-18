@@ -13,7 +13,7 @@ import { Observable } from 'rxjs';
 
 export class HttpInterCeptorService implements HttpInterceptor{
 
-  constructor(private authentication:AuthService ,private toaster:ToastrService,private router:Router) { }
+  constructor(private authentication:AuthService , private router:Router) { }
 
   intercept(request: HttpRequest <any> , next: HttpHandler): Observable <HttpEvent < any >> {
 

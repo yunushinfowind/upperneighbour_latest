@@ -63,7 +63,7 @@ export class EditComponent implements OnInit {
       this.teacherService.editTeacher(formData).subscribe(result => {
         if (result.success) {
           this.showLoader = false;
-          this.toastr.success(result.message);
+          this.toastr.success('User profile updated successfully.');
           this.router.navigateByUrl('/admin/user/list')
         } else {
           this.toastr.error(result.message)

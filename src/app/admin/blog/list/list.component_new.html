@@ -1,0 +1,73 @@
+<div class="content-wrapper">
+  <section class="content-header">
+    <div class="container-fluid">
+      <div class="row mb-2">
+        <div class="col-sm-6">
+          <h1>Blog List</h1>
+        </div>
+        <div class="col-sm-6">
+          <ol class="breadcrumb float-sm-right">
+            <li class="breadcrumb-item"><a class="btn btn-sm btn-primary btn-block" routerLink="/admin/blog/add">Add
+                Blog</a></li>
+          </ol>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="content">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-12">
+          <div class="card">
+            <div class="card-header">
+              <h3 class="card-title">Blog List</h3>
+              <div class="card-tools">
+                <button (click)="resetSearch()" id="search_refresh" type="button" class="btn btn-primary">
+                  <i class="fas fa-redo-alt"></i>
+                </button>
+                <div class="input-group input-group-sm" style="width: 150px;">
+                  <input type="text" name="table_search" class="table_search form-control float-right"
+                    placeholder="Search By Title">
+                  <div class="input-group-append">
+                    <button type="submit" (click)="blogList(1)" class="btn btn-default">
+                      <i class="fas fa-search"></i>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- /.card-header -->
+            <div class="card-body">
+              <button mat-raised-button color="primary" class="mt-40">
+                Add New <i class="material-icons">add_circle_outline</i>
+              </button>
+
+              <div cdkDropList class="example-list mt-20" (cdkDropListDropped)="drop($event)">
+                <div class="example-box" *ngFor="let movie of movies, index as i" cdkDrag>
+                  <div class="drag-index">{{i+1}}</div>
+                  <div class="w-10 drag-icon">
+                    <i class="material-icons">reorder</i>
+                  </div>
+                  <div class="w-100 drag-content">
+                    <mat-checkbox>Click and drop only through icon</mat-checkbox>
+                  </div>
+                  <div class="w-10 delete-icon">
+                    <button mat-icon-button>
+                      <i class="material-icons">delete_outline</i>
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <div class="alert-text">
+                Click Checkbox for drag your Div.
+              </div>
+            </div>
+            <!-- <pagination-controls (pageChange)="currentPage = $event" id="second"></pagination-controls> -->
+            <!-- /.card-body -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>

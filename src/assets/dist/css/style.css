@@ -44,8 +44,11 @@ nav.main-header .navbar-nav {
     background: none !important;
 }
 .btn.btn-sm {
-    padding: .5rem 0.6rem;
+    padding: .25rem .5rem;
     border-width: 1px !important;
+}
+.input-group .btn, table .btn {
+    margin: 1px !important;
 }
 div.card {
     box-shadow: 0 10px 20px 0 rgba(0, 0, 0, 0.05) !important;
@@ -76,9 +79,6 @@ div table.table thead th {
 div table.table thead th:nth-child(2),
 div table.table tbody td:nth-child(2) {
     text-align: left;
-}
-.input-group>.form-control[type="file"] {
-    overflow: hidden;
 }
 .add-video{
     overflow: hidden;
@@ -211,18 +211,33 @@ form .table td .mb-2 .form-check {
 .card-body table.table-sm td a.btn span.badge {
     margin-left: 5px;
 }
-.input-group>.form-control[type="file"] {
+.form-group .form-control[type="file"],
+.input-group .form-control[type="file"] {
     color: #fff;
-    background-color: #007bff;
-    border-color: #007bff;
+    overflow: hidden;
     max-width: 25%;
     font-size: .64rem;
     padding: .25rem .5rem;
     height: auto;
     box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16), 0 2px 10px 0 rgba(0,0,0,0.12);
     cursor: pointer;
+    border: none;
 }
-
+table .form-group .form-control[type="file"],
+table .input-group .form-control[type="file"] {
+    max-width: 100%;
+}
+[class*=sidebar-dark-] .sidebar a {
+    color: #c2c7d0;
+}
+.input-group input#notation_file {
+    max-width: 100%;
+    border-radius: .25rem;
+}
+.main-sidebar a.brand-link {
+    display: flex;
+    overflow: hidden;
+}
 
 /* Responsive */
 @media screen and (max-width: 992px) {

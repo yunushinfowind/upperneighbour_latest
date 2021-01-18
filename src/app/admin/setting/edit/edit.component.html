@@ -19,24 +19,38 @@
                                     <h3 class="card-title">Update Settings</h3>
                                 </div>
                                 <div class="card-body">
-                                    <form [formGroup]="productForm">
+                                    <form #setting="ngForm" (ngSubmit)="settingSubmit(setting)">
                                       
-                                        <table class="table table-bordered" formArrayName="quantities">
-                                          <tr *ngFor="let quantity of quantities(); let i=index" [formGroupName]="i">
+                                        <table class="table table-bordered">
+                                          <tr >
                                             <td>
                                                 Key :
-                                                <input type="text" [disabled]="true" formControlName="key_value" value="{{quantity.key_value}}" class="text-row form-control">
+                                                <input type="text" [disabled]="true"  value="Slice user name" class="text-row form-control">
                                             </td>
                                             <td>
                                                 value :
-                                                <input type="text" formControlName="value" value="{{quantity.value}}" class="text-row form-control">
+                                                <input type="text" required name="slice_user_name" [(ngModel)]="model.slice_user_name" #slice_user_name="ngModel" class="form-control" placeholder="slice username">
                                                
+                                            </td>
+                                          </tr>
+                                          <tr >
+                                            <td>
+                                                Key :
+                                                <input type="text" [disabled]="true" readonly  value="Slice Password" class="text-row form-control">
+                                            </td>
+                                            <td>
+                                                value :
+                                                <input type="text" required name="slice_password" [(ngModel)]="model.slice_password" #slice_password="ngModel" class="form-control" placeholder="slice password">
+                                                
                                             </td>
                                           </tr>
                                         </table>
                                        
-                                        <button id="submit_button" type="button" (click)="onSubmit(productForm)" class="btn btn-success">Submit<span id="loader_submit" style="display: none;"> <i
-                                            class="fas fa-sync fa-spin"></i></span></button>
+                                        <div class="form-group">
+                                            <button type="submit"  class="btn btn-primary">Update
+                                                <!-- <span > <i class="fas fa-sync fa-spin"></i></span> -->
+                                            </button>
+                                        </div>
                                         
                                       </form>
                                 </div>

@@ -12,6 +12,7 @@ import { environment } from '../../../../environments/environment';
 export class AuthService {
 
   baseUrl: string = "";
+  
   isLogged: BehaviorSubject<boolean>;
   constructor(private router: Router, private httpclient: HttpClient) {
     this.baseUrl = environment.baseUrl;
@@ -37,11 +38,24 @@ export class AuthService {
     }));
   }
 
+
+
   forgotPassword(forgotPassword: any) {
     const formData = new FormData()
     formData.append('email', forgotPassword.email);
     const result = this.httpclient.post(this.baseUrl + '/admin/forgot-password', formData);
     return result.pipe(map((response: any) => {
+      return response;
+    }));
+  }
+
+  checkToken(){
+    const formData = new FormData()
+    const result = this.httpclient.post(this.baseUrl + '/auth/user-token', formData);
+    return result.pipe(map((response: any) => {
+      if (response) {
+        localStorage.setItem('token_status', response.success);
+      }
       return response;
     }));
   }

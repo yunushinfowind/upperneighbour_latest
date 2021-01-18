@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit } from '@angular/core';
 import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { NgForm } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
@@ -21,22 +21,40 @@ export class UpdateComponent implements OnInit {
     career_highlight: '',
     key_point: '',
     performance: '',
-    address: ''
+    address: '',
+    emojis:[]
   }
   imageSrc: any;
   Id: any;
   teacherDetail: any;
   showLoader:boolean=false;
+  emojiList:any;
 
 
   public Editor = ClassicEditor;
-  constructor(private toastr: ToastrService, private teacherService: TeacherService, private activatedRoute: ActivatedRoute, private router: Router) { }
+  constructor(private elementRef:ElementRef , private toastr: ToastrService, private teacherService: TeacherService, private activatedRoute: ActivatedRoute, private router: Router) { }
 
   ngOnInit(): void {
     this.activatedRoute.params.subscribe(params => {
       this.Id = params['id'];
     })
     this.getTeacherDetail(this.Id);
+    this.getEmojiList();
+  }
+
+  ngAfterViewInit() {
+    // assume dynamic HTML was added before
+    this.elementRef.nativeElement.querySelector('button').addEventListener('click', this.removeEmoji.bind(this));
+  }
+
+  openEmoji() {
+    console.log('inn')
+    if( $('.select_group').css('display') == 'block' ) {
+      $('.select_group').css({'display':'none'})
+   } else {
+    $('.select_group').css({'display':'block'})
+   }
+   
   }
 
   getTeacherDetail(id) {
@@ -51,10 +69,88 @@ export class UpdateComponent implements OnInit {
         this.model.performance = result.data.teacherProfile.performance;
         this.model.address = result.data.teacherProfile.address;
         this.imageSrc = result.data.profile
-        console.log(this.teacherDetail)
+        var emojiArray = result.data.teacherProfile.userEmojis;
+        if(emojiArray.length > 0){
+          for (let i=0;i<emojiArray.length;i++){
+          var image = new Image();
+          image.width = 25;
+          image.id = 'img_'+emojiArray[i].id;
+          image.src = emojiArray[0].emoji;
+          var g = document.createElement('div');
+          g.setAttribute("id", "div"+emojiArray[i].id);
+          g.setAttribute("class", "artist-collection-photo");
+          var button = document.createElement('span');
+          button.setAttribute("class", "close")
+          button.innerHTML = "X"
+          button.addEventListener('click', (e) => {
+            this.removeEmoji(emojiArray[i].id);
+          });
+          // button.setAttribute("onclick", "removeEmoji("+id+")");
+          g.appendChild(button)
+          g.appendChild(image)
+          document.getElementById('emoji-area').appendChild(g);
+          this.model.emojis.push(emojiArray[0].emoji)
+          }
+        }
       }
 
     })
+  }
+
+  getEmojiUrl(id:any){
+    $('#emoji_'+id).attr('href');
+    console.log($('#emoji_'+id + '> img').attr('src'));
+    var emoji = $('#emoji_'+id + '> img').attr('src');
+    this.model.emojis.push(emoji);
+   
+    var image = new Image();
+    image.width = 25;
+    image.id = 'img_'+id;
+    image.src = emoji;
+    var g = document.createElement('div');
+    g.setAttribute("id", "div"+id);
+    g.setAttribute("class", "artist-collection-photo");
+    var button = document.createElement('span');
+    button.setAttribute("class", "close")
+    button.innerHTML = "X"
+    button.addEventListener('click', (e) => {
+      this.removeEmoji(id);
+     });
+    // button.setAttribute("onclick", "removeEmoji("+id+")");
+    g.appendChild(button)
+    g.appendChild(image)
+    document.getElementById('emoji-area').appendChild(g);
+    console.log(this.model.emojis)
+  }
+
+  public removeEmoji(id)
+  {
+    var removeSrc = $('#img_'+id).attr('src');
+    console.log(removeSrc)
+    var totalArray = this.model.emojis;
+    var index = totalArray.indexOf(removeSrc);
+    console.log(index)
+    if (index > -1) {
+      totalArray.splice(index, 1);
+    }
+
+    $('#img_'+id).parent().remove();
+    console.log("ID:"+id)
+    console.log(totalArray)
+  }
+
+  getEmojiList(){
+    this.teacherService.getEmojiList(1).subscribe(result => {
+      if (result.success) {
+        this.emojiList = result.data;
+      } else {
+        this.toastr.error(result.message)
+      }
+    },
+      error => {
+
+      }
+    )
   }
 
 
@@ -72,6 +168,7 @@ export class UpdateComponent implements OnInit {
       formData.append('performance', this.model.performance);
       formData.append('address', this.model.address);
       formData.append('id', this.teacherDetail.id);
+      formData.append('emojis[]', JSON.stringify(this.model.emojis));
 
       this.teacherService.editTeacher(formData).subscribe(result => {
         if (result.success) {

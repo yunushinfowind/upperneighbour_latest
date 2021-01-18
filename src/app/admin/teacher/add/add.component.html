@@ -27,17 +27,17 @@
                                 <div class="card-body">
                                     <form #teacherForm="ngForm" (ngSubmit)="teacherSubmit(teacherForm)">
                                         <div class="form-group">
-                                            <label>Fullname:</label>
-                                            <input type="text" required name="fullname" [(ngModel)]="model.fullname" #fullname="ngModel" class="form-control" placeholder="full Name">
+                                            <label>Full Name:</label>
+                                            <input type="text" required name="fullname" [(ngModel)]="model.fullname" #fullname="ngModel" class="form-control" placeholder="Full Name">
                                             <div class="alert-danger" *ngIf="(fullname.touched && !fullname.valid)||(teacherForm.submitted && !fullname.valid)">
-                                                <div *ngIf="fullname.errors.required">Title is required.</div>
+                                                <div *ngIf="fullname.errors.required">Full Name is required.</div>
                                             </div>
                                         </div>
                                         <div class="form-group">
-                                            <label>Profession:</label>
-                                            <input type="text" required name="profession" [(ngModel)]="model.profession" #profession="ngModel" class="form-control" placeholder="profession">
+                                            <label>Instrument:</label>
+                                            <input type="text" required name="profession" [(ngModel)]="model.profession" #profession="ngModel" class="form-control" placeholder="Instrument">
                                             <div class="alert-danger" *ngIf="(profession.touched && !profession.valid)||(teacherForm.submitted && !profession.valid)">
-                                                <div *ngIf="profession.errors.required">Profession is required.</div>
+                                                <div *ngIf="profession.errors.required">Instrument is required.</div>
                                             </div>
                                         </div>
                                         <div class="form-group">
@@ -62,17 +62,17 @@
                                             </div>
                                         </div>
                                         <div class="form-group">
-                                            <label>Kryptonite:</label>
-                                            <input type="text" required name="key_point" [(ngModel)]="model.key_point" #key_point="ngModel" class="form-control" placeholder="key point">
+                                            <label>My Kryptonite:</label>
+                                            <input type="text" required name="key_point" [(ngModel)]="model.key_point" #key_point="ngModel" class="form-control" placeholder="My Kryptonite">
                                             <div class="alert-danger" *ngIf="(key_point.touched && !key_point.valid)||(teacherForm.submitted && !key_point.valid)">
-                                                <div *ngIf="key_point.errors.required">key point is required.</div>
+                                                <div *ngIf="key_point.errors.required">My Kryptonite is required.</div>
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <label>Memorable Performance:</label>
-                                            <input type="text" required name="performance" [(ngModel)]="model.performance" #performance="ngModel" class="form-control" placeholder="performance">
+                                            <input type="text" required name="performance" [(ngModel)]="model.performance" #performance="ngModel" class="form-control" placeholder="Memorable Performance">
                                             <div class="alert-danger" *ngIf="(performance.touched && !performance.valid) ||(teacherForm.submitted && !performance.valid)">
-                                                <div *ngIf="performance.errors.required">Performance is required.</div>
+                                                <div *ngIf="performance.errors.required">Memorable Performance is required.</div>
                                             </div>
                                         </div>
                                         <div class="form-group">
@@ -87,7 +87,7 @@
                                             <div class="value"><pre id="emojis-wysiwyg-value"></pre></div>
                                         </div> -->
                                         <div class="bootstrap-timepicker">
-                                            <!-- <img [src]="imageSrc" *ngIf="imageSrc" style="height: 100px; width:100px"> -->
+                                            <img [src]="imageSrc" *ngIf="imageSrc" style="height: 100px; width:100px">
                                             <div class="form-group">
                                                 <label>Profile:</label>
                                                 <div class="input-group date">
@@ -100,7 +100,7 @@
                                             </div>
                                             <div class="form-group">
                                                 
-                                                <label>Emojis:</label>
+                                                <label>Most Used Emojis:</label>
                                                 <div class="form-emoji-div">
                                                     <div class="emoji-menu" style="top:38px; left:0px; margin: 0;">
                                                         <ul class="group-selector">

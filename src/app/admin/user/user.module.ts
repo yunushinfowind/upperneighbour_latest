@@ -7,13 +7,14 @@ import { EditComponent } from './edit/edit.component';
 import { ViewComponent } from './view/view.component';
 import { FormsModule } from '@angular/forms';
 import { JwPaginationModule } from 'jw-angular-pagination';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 
 @NgModule({
   declarations: [ListComponent, EditComponent, ViewComponent],
   imports: [
     CommonModule,
-    UserRoutingModule , FormsModule , JwPaginationModule
+    UserRoutingModule , FormsModule , NgxPaginationModule
   ]
 })
 export class UserModule { }

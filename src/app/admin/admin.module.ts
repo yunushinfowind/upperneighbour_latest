@@ -9,6 +9,10 @@ import { ChangepasswordComponent } from './changepassword/changepassword.compone
 import { FormsModule } from '@angular/forms';
 import { HashtagComponent } from './hashtag/hashtag.component';
 import { EditProfileComponent } from './edit-profile/edit-profile.component';
+import { NgxPaginationModule } from 'ngx-pagination';
+import { DragDropModule } from '@angular/cdk/drag-drop';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 
 
@@ -17,7 +21,11 @@ import { EditProfileComponent } from './edit-profile/edit-profile.component';
   declarations: [DashboardComponent, AdminComponent, ChangepasswordComponent,  HashtagComponent, EditProfileComponent],
   imports: [
     CommonModule,
-    AdminRoutingModule,SharedModule, FormsModule
+    AdminRoutingModule,SharedModule, FormsModule,
+    DragDropModule,
+    DragDropModule,
+    MatButtonModule,
+    MatCheckboxModule
   ]
 })
 export class AdminModule { }

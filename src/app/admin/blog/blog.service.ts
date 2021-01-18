@@ -27,8 +27,26 @@ export class BlogService {
   }
 
   blogList(page , search) {
-    const result = this.httpclient.get(this.baseUrl + '/user/blog-list' + '?page=' + page+'&search='+search
+    const result = this.httpclient.get(this.baseUrl + '/admin/blog-list' + '?page=' + page+'&search='+search
     );
+    return result.pipe(map((response: any) => {
+      return response;
+    }));
+  }
+
+  getCurrentDragList(page , model) {
+    const result = this.httpclient.get(this.baseUrl + '/admin/common-list' + '?page=' + page+'&model='+model
+    );
+    return result.pipe(map((response: any) => {
+      return response;
+    }));
+  }
+
+  updateOrder(orderUpdateForm: any) {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/x-www-form-urlencoded'
+    });
+    const result = this.httpclient.post(this.baseUrl + '/admin/update-order-list', orderUpdateForm);
     return result.pipe(map((response: any) => {
       return response;
     }));

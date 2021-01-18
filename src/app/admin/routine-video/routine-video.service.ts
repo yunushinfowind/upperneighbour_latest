@@ -48,7 +48,7 @@ export class RoutineVideoService {
     }));
   }
   routineVideoList(page,routineId,search) {
-    const result = this.httpclient.get(this.baseUrl + '/user/routine-video-list' + '?page=' + page + '&routine_id=' + routineId + '&search=' + search
+    const result = this.httpclient.get(this.baseUrl + '/user/admin-routine-video-list' + '?page=' + page + '&routine_id=' + routineId + '&search=' + search
     );
     return result.pipe(map((response: any) => {
       return response;
@@ -82,6 +82,24 @@ export class RoutineVideoService {
 
   deleteRoutineVideo(id: any) {
     const result = this.httpclient.delete(this.baseUrl + '/admin/delete-routine-video/' + id);
+    return result.pipe(map((response: any) => {
+      return response;
+    }));
+  }
+
+  getCurrentDragList(page,routine_id , model) {
+    const result = this.httpclient.get(this.baseUrl + '/admin/common-list' + '?page=' + page+'&model='+model+'&routine_id='+routine_id
+    );
+    return result.pipe(map((response: any) => {
+      return response;
+    }));
+  }
+
+  updateOrder(orderUpdateForm: any) {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/x-www-form-urlencoded'
+    });
+    const result = this.httpclient.post(this.baseUrl + '/admin/update-order-list', orderUpdateForm);
     return result.pipe(map((response: any) => {
       return response;
     }));

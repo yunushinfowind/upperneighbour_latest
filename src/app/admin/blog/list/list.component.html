@@ -36,25 +36,31 @@
                         </div>
                         <!-- /.card-header -->
                         <div class="card-body">
-                            <div class="table-responsive">
+                            <div  class="table-responsive" class="example-list mt-20">
                                 <table datatable class="table table-sm">
                                     <thead>
                                         <tr>
                                             <th>S.N.</th>
+                                            <th>Drage Icon</th>
                                             <th>Title</th>
                                             <th>Description</th>
                                             <th>Image</th>
                                             <th>Action</th>
                                         </tr>
                                     </thead>
-                                    <tbody>
+                                    <tbody cdkDropList class="example-list mt-20" (cdkDropListDropped)="drop($event)">
                                         <tr *ngIf="showLoader">
                                             <td colspan="5">
                                                 <i class="fas 3x fa-spinner fa-spin"></i>
                                             </td>
                                         </tr>
-                                        <tr id="row_{{blog.id}}" *ngFor="let blog of List; let i = index">
+                                        <tr cdkDrag id="row_{{blog.id}}" *ngFor="let blog of List | paginate: { itemsPerPage: 10, currentPage: currentPage, id: 'second' } ; let i = index">
                                             <td>{{(i+1)+(10*(currentPage-1))}}</td>
+                                            <td>
+                                              <div class="w-10 drag-icon">
+                                                <i class="fas fa-bars"></i>
+                                              </div>
+                                            </td>
                                             <td>{{blog.title}}</td>
                                             <td class="description">{{blog.description}}</td>
                                             <td><img src="{{blog.image}}" width="100px" height="50px"></td>
@@ -65,7 +71,7 @@
                                             </td>
                                         </tr>
                                         <tr *ngIf="List?.length == 0" class="alert-danger">
-                                            <td colspan="5">
+                                            <td colspan="6">
                                             <span >
                                             No data found 
                                             </span>
@@ -75,6 +81,7 @@
                                 </table>
                             </div>
                         </div>
+                        <pagination-controls (click)="getCurrentPage()" (pageChange)="currentPage = $event" id="second"></pagination-controls>
                         <!-- /.card-body -->
                     </div>
                 </div>

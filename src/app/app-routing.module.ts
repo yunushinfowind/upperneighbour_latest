@@ -12,6 +12,7 @@ import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.componen
 import { BlogDetailComponent } from './shared/blog-detail/blog-detail.component';
 import { GuestService } from './shared/service/auth/guard/guest.service';
 import { LoginGuardService } from './shared/service/auth/guard/login-guard.service';
+import { TestDragComponent } from './test-drag/test-drag.component';
 
 const routes: Routes = [
   {path:'',redirectTo:'login', pathMatch: 'full'},
@@ -35,6 +36,9 @@ const routes: Routes = [
   {
     path:'admin',loadChildren:() =>AdminModule,
     canActivate: [AuthGuardService]
+  },
+  {
+    path : 'drag-drop' , component : TestDragComponent
   },
   {
     path:"**" , component:Page404Component

@@ -33,7 +33,7 @@
                                         <table class="table table-bordered" formArrayName="quantities">
                                           <tr>
                                             <th colspan="3">Add Multiple Video:</th>
-                                            <th width="150px"><button type="button" (click)="addQuantity()" class="btn btn-sm btn-primary">Add Field</button></th>
+                                            <th width="150px"><button id="add_field_button" type="button" (click)="addQuantity()" class="btn btn-sm btn-primary">Add Field</button></th>
                                           </tr>
                                           <tr *ngFor="let quantity of quantities().controls; let i=index" [formGroupName]="i">
                                             <td>
@@ -54,9 +54,10 @@
                                             <td>
                                                 <div ng-init="video_type=video" class="mb-2">
                                                     <div class="form-check">
-                                                        <input type="radio" class="form-check-input" id="video_type" formControlName="video_type" value="video" (change)="onTypeChange($event,i)">
+                                                        <input type="radio" class="form-check-input radio-video-input" id="video_type" formControlName="video_type" value="video" (change)="onTypeChange($event,i)">
                                                         <label class="form-check-label" for="">Video</label>
                                                     </div>
+                                                    or
                                                     <div class="form-check">
                                                         <input type="radio" class="form-check-input" id="embed_url" formControlName="video_type" value="embed_url" (change)="onTypeChange($event,i)" required="required">
                                                         <label class="form-check-label" for="">Embed Url</label>
@@ -68,7 +69,7 @@
                                                 <span id="video_div_{{i}}" >
                                                     <div class="form-group">
                                                         <label>Video:</label>
-                                                        <input type="file" accept="video/*" formControlName="video" (change)="onFileChange($event,i)"  class="form-control add-video">
+                                                        <input type="file" formControlName="video" (change)="onFileChange($event,i)"  class="form-control add-video">
                                                         <div *ngIf="submitted && quantity.controls.video.errors">
                                                             <div class="alert-danger" *ngIf="quantity.controls.video.errors.required">Video is required</div>
                                                         </div>
@@ -84,7 +85,7 @@
                                                     </div>
                                                     <div class="form-group">
                                                         <label>Video Thumb:</label>
-                                                        <input type="file" class="form-control add-video" (change)="onFileChange($event,i)" formControlName="thumb">
+                                                        <input type="file" class="form-control add-video" (change)="onFileThumbChange($event,i)" formControlName="thumb">
                                                         <div *ngIf="submitted && quantity.controls.thumb.errors">
                                                             <div class="alert-danger" *ngIf="quantity.controls.thumb.errors.required">Thumb is required</div>
                                                         </div>
@@ -93,7 +94,7 @@
                                                 
                                              </td>
                                             <td>
-                                                <button (click)="removeQuantity(i)" class="btn btn-sm btn-danger">Remove</button>
+                                                <button (click)="removeQuantity(i)" id="remove_field_button" class="btn btn-sm btn-danger">Remove</button>
                                             </td>
                                           </tr>
                                         </table>

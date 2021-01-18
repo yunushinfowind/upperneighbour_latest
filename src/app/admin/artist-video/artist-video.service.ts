@@ -81,4 +81,22 @@ export class ArtistVideoService {
     }));
   }
 
+  getCurrentDragList(page,user_id , model) {
+    const result = this.httpclient.get(this.baseUrl + '/admin/common-list' + '?page=' + page+'&model='+model+'&user_id='+user_id
+    );
+    return result.pipe(map((response: any) => {
+      return response;
+    }));
+  }
+
+  updateOrder(orderUpdateForm: any) {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/x-www-form-urlencoded'
+    });
+    const result = this.httpclient.post(this.baseUrl + '/admin/update-order-list', orderUpdateForm);
+    return result.pipe(map((response: any) => {
+      return response;
+    }));
+  }
+  
 }

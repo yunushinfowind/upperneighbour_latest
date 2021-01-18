@@ -20,6 +20,22 @@ export class ChangepasswordComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  checkPasswordRunTime(){
+    var currentPass = this.model.current_password;
+    console.log(currentPass)
+    this.accountService.checkCurrentPassWord(currentPass).subscribe(
+      res => {
+        if (!res.success) {
+          this.toastr.error(res.message);
+        } 
+      },
+      err => {
+        console.log(err.message)
+        // this.toastr.error(res.message)
+      }
+    )
+  }
+
   PasswordFormSubmit(f: NgForm) {
     console.log(f.value);
     if (f.valid) {

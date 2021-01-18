@@ -42,6 +42,7 @@
                                     <thead>
                                         <tr>
                                             <th>S.N.</th>
+                                            <th>Drag Icon</th>
                                             <th>Full Name</th>
                                             <th>Profile</th>
                                             <th>Profession</th>
@@ -50,7 +51,7 @@
                                             <th>Action</th>
                                         </tr>
                                     </thead>
-                                    <tbody>
+                                    <tbody cdkDropList class="example-list mt-20" (cdkDropListDropped)="drop($event)">
                                         
                                         <tr *ngIf="showLoader">
                                             <td colspan="7">
@@ -58,8 +59,13 @@
                                             </td>
                                         </tr>
                                         
-                                        <tr id="row_{{teacher.id}}" *ngFor="let teacher of List ; let i = index">
+                                        <tr cdkDrag id="row_{{teacher.id}}" *ngFor="let teacher of List | paginate: { itemsPerPage: 10, currentPage: currentPage, id: 'second' } ; let i = index">
                                             <td>{{(i+1)+(10*(currentPage-1))}}</td>
+                                            <td>
+                                                <div class="w-10 drag-icon">
+                                                  <i class="fas fa-bars"></i>
+                                                </div>
+                                              </td>
                                             <td>{{teacher.fullname}}</td>
                                             <td><img src="{{teacher.profile}}" width="100px" height="50px"></td>
                                             <td>{{teacher.teacherProfile.profession}}</td>
@@ -80,7 +86,7 @@
 
                                             </tr>
                                             <tr *ngIf="List?.length == 0" class="alert-danger">
-                                                <td colspan="7">
+                                                <td colspan="8">
                                                 <span >
                                                 No data found 
                                                 </span>
@@ -91,6 +97,11 @@
                                 </div>
                             </div>
                         </div>
+                      
+                        <pagination-controls (click)="getCurrentPage()" (pageChange)="currentPage = $event" id="second"></pagination-controls>
+                        <!-- <div  class="card-footer pb-0 pt-3">
+                            <jw-pagination [items]="items" (changePage)="onChangePage($event)"></jw-pagination>
+                        </div> -->
                         
                         <!-- /.card-body -->
                     </div>

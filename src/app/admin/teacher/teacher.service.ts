@@ -27,7 +27,7 @@ export class TeacherService {
   }
 
   teacherList(page,search) {
-    const result = this.httpclient.get(this.baseUrl + '/user/teacher-list' + '?page=' + page+'&search='+search
+    const result = this.httpclient.get(this.baseUrl + '/user/admin-teacher-list' + '?page=' + page+'&search='+search
     );
     return result.pipe(map((response: any) => {
       return response;
@@ -68,6 +68,23 @@ export class TeacherService {
 
   deleteTeacher(id: any) {
     const result = this.httpclient.delete(this.baseUrl + '/admin/delete-teacher/' + id);
+    return result.pipe(map((response: any) => {
+      return response;
+    }));
+  }
+  getCurrentDragList(page , model) {
+    const result = this.httpclient.get(this.baseUrl + '/admin/common-list' + '?page=' + page+'&model='+model
+    );
+    return result.pipe(map((response: any) => {
+      return response;
+    }));
+  }
+
+  updateOrder(orderUpdateForm: any) {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/x-www-form-urlencoded'
+    });
+    const result = this.httpclient.post(this.baseUrl + '/admin/update-order-list', orderUpdateForm);
     return result.pipe(map((response: any) => {
       return response;
     }));

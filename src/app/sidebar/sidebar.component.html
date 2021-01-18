@@ -3,7 +3,7 @@
   <a class="brand-link">
     <img src="http://framework.infowindtech.biz/upperneigh/uploads/Logo.png" alt="upperneigher"
       class="brand-image img-circle elevation-3" style="opacity: .8">
-    <span class="brand-text font-weight-light">Upper Neighbour</span>
+    <span class="brand-text font-weight-light">Upper Neighbor</span>
   </a>
 
   <!-- Sidebar -->
@@ -42,28 +42,7 @@
           </a>
         </li>
         <li class="nav-item">
-          <a [routerLinkActiveOptions]="{exact: false}" routerLinkActive='active' routerLink="admin/user/list"
-            class="nav-link">
-            <i class="nav-icon fas fas fa-user"></i>
-            <p>
-              User
-            </p>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a [routerLinkActiveOptions]="{exact: false}" routerLinkActive='active' routerLink="admin/blog/list"
-            class="nav-link">
-            <i class="nav-icon fas fas fa-book"></i>
-            <p>
-              Blog
-            </p>
-          </a>
-        </li>
-        <!-- [class.active]="router.isActive('/admin/artist-video/edit') || router.isActive('/admin/artist-video/view') 
-          || router.isActive('/admin/artist-video/list') || router.isActive('/admin/artist/list') || router.isActive('/admin/routine-video/edit') 
-          || router.isActive('/admin/routine-video/view') || router.isActive('/admin/routine/list') || router.isActive('/admin/routine/view') || router.isActive('/admin/routine/edit') || router.isActive('/admin/routine-video/list')" -->
-        <li class="nav-item">
-          <a [routerLinkActiveOptions]="{exact: false}" routerLinkActive='active'   routerLink="admin/artist/list"
+          <a  routerLinkActive='active'   routerLink="admin/artist/list"
             class="nav-link">
             <i class="nav-icon fas fas fa-user"></i>
             <p>
@@ -71,6 +50,29 @@
             </p>
           </a>
         </li>
+       
+        <li class="nav-item">
+          <a  routerLinkActive='active' routerLink="admin/blog/list"
+            class="nav-link">
+            <i class="nav-icon fas fas fa-book"></i>
+            <p>
+              Blog
+            </p>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a  routerLinkActive='active' routerLink="admin/user/list"
+            class="nav-link">
+            <i class="nav-icon fas fas fa-user"></i>
+            <p>
+              User
+            </p>
+          </a>
+        </li>
+        <!-- [class.active]="router.isActive('/admin/artist-video/edit') || router.isActive('/admin/artist-video/view') 
+          || router.isActive('/admin/artist-video/list') || router.isActive('/admin/artist/list') || router.isActive('/admin/routine-video/edit') 
+          || router.isActive('/admin/routine-video/view') || router.isActive('/admin/routine/list') || router.isActive('/admin/routine/view') || router.isActive('/admin/routine/edit') || router.isActive('/admin/routine-video/list')" -->
+        
        
         <!-- <li class="nav-item">
           <a [routerLinkActiveOptions]="{exact: false}" routerLinkActive='active' routerLink="admin/routine/list"
@@ -82,39 +84,38 @@
           </a>
         </li> -->
         <li class="nav-item">
-          <a [routerLinkActiveOptions]="{exact: false}" routerLinkActive='active' routerLink="admin/change-password" class="nav-link">
-            <i class="nav-icon fas fa-edit"></i>
-            <p>
-              Change Password
-            </p>
-          </a>
-        </li>
-
-        <li class="nav-item">
-          <a [routerLinkActiveOptions]="{exact: false}" routerLinkActive='active' routerLink="admin/edit-profile" class="nav-link">
-            <i class="nav-icon fas fa-edit"></i>
-            <p>
-              Edit Profile
-            </p>
-          </a>
-        </li>
-
-         <li class="nav-item">
-          <a [routerLinkActiveOptions]="{exact: false}" routerLinkActive='active' routerLink="admin/hashtag" class="nav-link">
+          <a  routerLinkActive='active' routerLink="admin/hashtag" class="nav-link">
             <i class="nav-icon fa fa-hashtag"></i>
            <p>
               Hashtags
             </p>
           </a>
         </li>
-        <!-- <li class="nav-item menu-open">
+        <li class="nav-item">
+          <a routerLinkActive='active' routerLink="admin/edit-profile" class="nav-link">
+            <i class="nav-icon fas fa-edit"></i>
+            <p>
+              Edit Profile
+            </p>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a  routerLinkActive='active' routerLink="admin/change-password" class="nav-link">
+            <i class="nav-icon fas fa-key"></i>
+            <p>
+              Change Password
+            </p>
+          </a>
+        </li>
+        
+         <li class="nav-item menu-open">
           <a routerLinkActive='active' routerLink="admin/setting/edit" class="nav-link">
             <i class="nav-icon fas fa-cog"></i>
             <p>
               Settings
             </p>
           </a>
-        </li> -->
+        </li> 
 
         <!-- <li class="nav-item" (click)="clickEvent()"  
     [ngClass]="status ? 'menu-is-opening menu-open' : ''">

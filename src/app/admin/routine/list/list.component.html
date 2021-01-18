@@ -60,7 +60,7 @@
                                                 <i class="fas 3x fa-spinner fa-spin"></i>
                                             </td>
                                         </tr>
-                                        <tr id="row_{{routine.id}}" *ngFor="let routine of List; let i = index">
+                                        <tr id="row_{{routine.id}}" *ngFor="let routine of List | paginate: { itemsPerPage: 10, currentPage: currentPage, id: 'second' }; let i = index">
                                             <td>{{(i+1)+(10*(currentPage-1))}}</td>
                                             <td>{{routine.user.fullname}}</td>
                                             <td>{{routine.routine_name}}</td>
@@ -88,6 +88,7 @@
                                 </table>
                             </div>
                         </div>
+                        <pagination-controls (pageChange)="currentPage = $event" id="second"></pagination-controls>
                         <!-- /.card-body -->
                     </div>
                 </div>

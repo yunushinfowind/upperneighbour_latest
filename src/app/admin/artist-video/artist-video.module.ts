@@ -7,13 +7,22 @@ import { AddComponent } from './add/add.component';
 import { EditComponent } from './edit/edit.component';
 import { ViewComponent } from './view/view.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { NgxPaginationModule } from 'ngx-pagination';
+import { DragDropModule } from '@angular/cdk/drag-drop';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 
 @NgModule({
   declarations: [ListComponent, AddComponent, EditComponent, ViewComponent],
   imports: [
     CommonModule,
-    ArtistVideoRoutingModule ,  FormsModule , ReactiveFormsModule
+    ArtistVideoRoutingModule ,  FormsModule , ReactiveFormsModule , NgxPaginationModule,
+    DragDropModule,
+    DragDropModule,
+    MatButtonModule,
+    MatCheckboxModule
+    
   ]
 })
 export class ArtistVideoModule { }

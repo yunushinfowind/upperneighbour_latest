@@ -1,0 +1,24 @@
+<button mat-raised-button color="primary" class="mt-40">
+    Add New <i class="material-icons">add_circle_outline</i>
+  </button>
+  
+  <div cdkDropList class="example-list mt-20" (cdkDropListDropped)="drop($event)">  
+      <div class="example-box" *ngFor="let movie of movies, index as i" cdkDrag>
+      <div class="drag-index">{{i+1}}</div>
+          <div class="w-10 drag-icon">
+        <i class="material-icons">reorder</i>
+      </div>
+      <div class="w-100 drag-content">
+        <mat-checkbox>Click and drop only through icon</mat-checkbox>  
+      </div> 
+      <div class="w-10 delete-icon">
+        <button mat-icon-button>
+          <i class="material-icons">delete_outline</i>
+        </button>
+      </div>
+    </div>
+  </div>
+  
+  <div class="alert-text">
+  Click Checkbox for drag your Div. 
+  </div>

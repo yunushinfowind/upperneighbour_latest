@@ -7,13 +7,14 @@ import { ListComponent } from './list/list.component';
 import { EditComponent } from './edit/edit.component';
 import { ViewComponent } from './view/view.component';
 import { FormsModule } from '@angular/forms';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 
 @NgModule({
   declarations: [AddComponent, ListComponent, EditComponent, ViewComponent],
   imports: [
     CommonModule,
-    RoutineRoutingModule ,FormsModule
+    RoutineRoutingModule ,FormsModule , NgxPaginationModule
   ]
 })
 export class RoutineModule { }

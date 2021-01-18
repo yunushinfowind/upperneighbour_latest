@@ -4,6 +4,7 @@ import { NgForm } from '@angular/forms';
 import * as $ from 'jquery';
 import { ActivatedRoute } from '@angular/router';
 import { ArtistVideoService } from '../artist-video.service';
+import {CdkDragDrop, moveItemInArray} from '@angular/cdk/drag-drop';
 
 
 
@@ -25,6 +26,9 @@ export class ListComponent implements OnInit {
   routine_id:any;
   notationFile: any;
   video_id: any;
+  convertedArray :any
+  currentDrageList:any;
+
   constructor(private activatedRoute :ActivatedRoute, private artistVideoService: ArtistVideoService, private toastr: ToastrService) { }
 
   ngOnInit(): void {
@@ -39,6 +43,8 @@ export class ListComponent implements OnInit {
       pageLength: 10,
       processing: true
     }
+    this.currentPage = 1;
+    this.getCurrentList();
   }
 
   artistVideoList(page) {
@@ -155,6 +161,62 @@ export class ListComponent implements OnInit {
   resetSearch(){
     $('.table_search').val('');
     this.artistVideoList(1);
+  }
+
+  
+  drop(event: CdkDragDrop<string[]>) {
+    moveItemInArray(this.List, event.previousIndex, event.currentIndex);
+    var previousIndex = event.previousIndex;
+    var currentIndex = event.currentIndex;
+    var swapLength = Math.abs(previousIndex-currentIndex);
+    var currArraylenght =this.currentDrageList.length;
+    var temp = this.currentDrageList[event.previousIndex];
+    var currArry = this.currentDrageList;
+    if (previousIndex < currentIndex) {
+      for (let i = previousIndex; i <= swapLength; i++) {
+        currArry[i] = currArry[i + 1];
+      }
+    } else {
+      for (let i = previousIndex; i >= currentIndex; i--) {
+        currArry[i] = currArry[i + 1];
+      }
+    }
+     currArry[currentIndex] = temp;
+     this.convertedArray = currArry;
+     this.updateOrderOfList();
+  }
+
+  getCurrentPage(){
+    this.currentPage = $('#second ul .current span').eq(1).text();
+    this.getCurrentList();
+  }
+  /*to update order of list*/
+  updateOrderOfList(){
+    var formData = new FormData();
+    formData.append('data[]', JSON.stringify(this.convertedArray));
+    formData.append('page', this.currentPage);
+    formData.append('model', 'artist_video');
+    formData.append('user_id', this.user_id);
+    this.artistVideoService.updateOrder(formData).subscribe(
+      result => {
+        if (result.success == true) {
+          this.artistVideoList(this.currentPage)
+          $('#second ul .current span').eq(1).trigger('click')
+          this.toastr.success('Order changed successfully.')
+        }
+      }
+    )
+  }
+
+  getCurrentList(){
+    this.artistVideoService.getCurrentDragList(this.currentPage,this.user_id,'artist_video').subscribe(
+      result => {
+        if (result.success == true) {
+          this.currentDrageList = result.data.rows;
+          // console.log(this.currentDrageList)
+        }
+      }
+    )
   }
 
 }

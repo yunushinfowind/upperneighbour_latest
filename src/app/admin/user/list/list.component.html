@@ -42,6 +42,7 @@
                                         <tr>
                                             <th>S.N.</th>
                                             <th>Full Name</th>
+                                            <th>Email</th>
                                             <th>Profile</th>
                                             <th>Status</th>
                                             <th>Action</th>
@@ -54,9 +55,10 @@
                                             </td>
                                         </tr>
                                   
-                                        <tr id="row_{{teacher.id}}" *ngFor="let teacher of pageOfItems ; let i = index">
+                                        <tr id="row_{{teacher.id}}" *ngFor="let teacher of items | paginate: { itemsPerPage: 10, currentPage: currentPage, id: 'second' } ; let i = index">
                                             <td>{{(i+1)+(10*(currentPage-1))}}</td>
                                             <td>{{teacher.fullname}}</td>
+                                            <td>{{teacher.email}}</td>
                                             <td><img src="{{teacher.profile}}" width="100px" height="50px"></td>
                                             <td>
                                                 <label  class="switch">
@@ -70,7 +72,7 @@
                                                 <a class="btn btn-sm btn-outline-info" [routerLink]="['/admin/user/edit',teacher.id]"><i class="fas fa-pencil-alt"></i></a>
                                             </td>
                                         </tr>
-                                        <tr *ngIf="pageOfItems?.length == 0" class="alert-danger">
+                                        <tr *ngIf="items.length == 0" class="alert-danger">
                                             <td colspan="5">
                                             <span >
                                             No data found 
@@ -82,10 +84,10 @@
                                 </table>
                             </div>
                         </div>
-                        
-                        <div  class="card-footer pb-0 pt-3">
+                        <pagination-controls  (pageChange)="currentPage = $event" id="second"></pagination-controls>
+                        <!-- <div  class="card-footer pb-0 pt-3">
                             <jw-pagination [items]="items" (changePage)="onChangePage($event)"></jw-pagination>
-                        </div>
+                        </div> -->
                     </div>
                 </div>
             </div>

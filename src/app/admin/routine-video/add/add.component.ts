@@ -22,22 +22,22 @@ export class AddComponent implements OnInit {
     routine_level: '',
     user_id: '',
     video: '',
-    video_url:'',
-    video_type:''
+    video_url: '',
+    video_type: ''
 
   }
   imageSrc: any;
   showLoader: boolean = false;
-  isValidationForVideo : boolean = false;
-  isValidationForEmbedUrl : boolean = false;
+  isValidationForVideo: boolean = false;
+  isValidationForEmbedUrl: boolean = false;
   artistList: any;
   user_id: any;
   routine_id: any;
   productForm: FormGroup;
   submitted = false;
   videos: any = [];
-  thumbs : any=[];
-  sizeSum : any = 0;
+  thumbs: any = [];
+  sizeSum: any = 0;
   constructor(private fb: FormBuilder, private activatedRoute: ActivatedRoute, private toastr: ToastrService, private routineService: RoutineVideoService, private router: Router, private routineSer: RoutineService) {
     this.productForm = this.fb.group({
       name: '',
@@ -64,7 +64,7 @@ export class AddComponent implements OnInit {
     return this.fb.group({
       video_title: ['', Validators.required],
       video_description: ['', [Validators.required]],
-      video_type:['', [Validators.required]],
+      video_type: ['', [Validators.required]],
       /*video: [
             '', 
             [this.conditionalValidator(
@@ -85,24 +85,24 @@ export class AddComponent implements OnInit {
               (() => this.isValidationForEmbedUrl === false),
               Validators.required
             )]
-          ] */   
+          ] */
 
 
       video_url: [""],
       thumb: [""],
-      video : [""],
+      video: [""],
     })
   }
 
-/* conditionalValidator(condition: (() => boolean), validator: ValidatorFn): ValidatorFn {
-  return (control: AbstractControl): {[key: string]: any} => {
-    if (! condition()) {
-     return "";
-    }else{
-       return validator(control);
-    }
-   }
-}*/
+  /* conditionalValidator(condition: (() => boolean), validator: ValidatorFn): ValidatorFn {
+    return (control: AbstractControl): {[key: string]: any} => {
+      if (! condition()) {
+       return "";
+      }else{
+         return validator(control);
+      }
+     }
+  }*/
 
   addQuantity() {
     this.quantities().push(this.newQuantity());
@@ -132,33 +132,33 @@ export class AddComponent implements OnInit {
     console.log(e)
   }
 
-  onTypeChange(event,i){
-   if(event.target.value=="video"){
-    
-    this.productForm.controls.quantities['controls'][i].get('video').setValidators(Validators.required)
-    this.productForm.controls.quantities['controls'][i].get('video').updateValueAndValidity()
+  onTypeChange(event, i) {
+    if (event.target.value == "video") {
 
-    this.productForm.controls.quantities['controls'][i].get('video_url').clearValidators();
-    this.productForm.controls.quantities['controls'][i].get('video_url').updateValueAndValidity()
+      this.productForm.controls.quantities['controls'][i].get('video').setValidators(Validators.required)
+      this.productForm.controls.quantities['controls'][i].get('video').updateValueAndValidity()
 
-    this.productForm.controls.quantities['controls'][i].get('thumb').clearValidators();
-    this.productForm.controls.quantities['controls'][i].get('thumb').updateValueAndValidity()
-    $("#embed_url_div_"+i+"").hide();
-    $("#video_div_"+i+"").show();
-      
-   }
-   if(event.target.value=="embed_url"){
-    this.productForm.controls.quantities['controls'][i].get('video').clearValidators();
-   this.productForm.controls.quantities['controls'][i].get('video').updateValueAndValidity()
-    
-    this.productForm.controls.quantities['controls'][i].get('video_url').setValidators(Validators.required)
-    this.productForm.controls.quantities['controls'][i].get('video_url').updateValueAndValidity()
+      this.productForm.controls.quantities['controls'][i].get('video_url').clearValidators();
+      this.productForm.controls.quantities['controls'][i].get('video_url').updateValueAndValidity()
 
-    this.productForm.controls.quantities['controls'][i].get('thumb').setValidators(Validators.required)
-    this.productForm.controls.quantities['controls'][i].get('thumb').updateValueAndValidity()
-    
-      $("#video_div_"+i+"").hide();
-      $("#embed_url_div_"+i+"").show();
+      this.productForm.controls.quantities['controls'][i].get('thumb').clearValidators();
+      this.productForm.controls.quantities['controls'][i].get('thumb').updateValueAndValidity()
+      $("#embed_url_div_" + i + "").hide();
+      $("#video_div_" + i + "").show();
+
+    }
+    if (event.target.value == "embed_url") {
+      this.productForm.controls.quantities['controls'][i].get('video').clearValidators();
+      this.productForm.controls.quantities['controls'][i].get('video').updateValueAndValidity()
+
+      this.productForm.controls.quantities['controls'][i].get('video_url').setValidators(Validators.required)
+      this.productForm.controls.quantities['controls'][i].get('video_url').updateValueAndValidity()
+
+      this.productForm.controls.quantities['controls'][i].get('thumb').setValidators(Validators.required)
+      this.productForm.controls.quantities['controls'][i].get('thumb').updateValueAndValidity()
+
+      $("#video_div_" + i + "").hide();
+      $("#embed_url_div_" + i + "").show();
     }
   }
 
@@ -173,37 +173,44 @@ export class AddComponent implements OnInit {
     const reader = new FileReader();
     if (event.target.files.length > 0) {
       const file = event.target.files[0];
-      var size = event.target.files[0].size/1000/1000;
-      size = Math.round(size * 10) / 10
-      this.sizeSum = this.sizeSum + size;
-      console.log('size:'+this.sizeSum)
-      let data = {
-        index: i,
-        file: file
+      var type = file.name.split('?')[0].split('.').pop();
+      var re = /(\.WMV|\.mp4|\.MOV)$/i;
+      if (!re.exec(file.name)) {
+        this.toastr.error('Sorry , Please upload video file')
+        return 
       }
-      this.videos[i] = file;
-      if(this.sizeSum > 200){
-      this.toastr.error('Sorry , size of video has been exceeded from 200 MB.')
+     else {
+      if (event.target.files.length > 0) {
+        const file = event.target.files[0];
+        var size = event.target.files[0].size / 1000 / 1000;
+        size = Math.round(size * 10) / 10
+        this.sizeSum = this.sizeSum + size;
+        console.log('size:' + this.sizeSum)
+        let data = {
+          index: i,
+          file: file
+        }
+        this.videos[i] = file;
+        if (this.sizeSum > 200) {
+          this.toastr.error('Sorry , size of video has been exceeded from 200 MB.')
+        }
       }
     }
+  }
   }
 
   onFileThumbChange(event, i) {
     const reader = new FileReader();
     if (event.target.files.length > 0) {
       const file = event.target.files[0];
-      var size = event.target.files[0].size/1000/1000;
+      var size = event.target.files[0].size / 1000 / 1000;
       size = Math.round(size * 10) / 10
       this.sizeSum = this.sizeSum + size;
-      console.log('size:'+this.sizeSum)
       let data = {
         index: i,
         file: file
       }
-      this.thumbs[i] = file;
-      if(this.sizeSum > 200){
-      this.toastr.error('Sorry , size of video has been exceeded from 200 MB.')
-      }
+      this.videos[i] = file;
     }
   }
 
@@ -216,12 +223,8 @@ export class AddComponent implements OnInit {
     this.submitted = true;
     var data = this.productForm.value.quantities;
     var formLength = this.productForm.value.quantities.length;
-    // if(!formLength){
-    //   this.toastr.error('Please '); 
-    // }
-
+    
     if (formLength > 0) {
-      //console.log(data[0])
       var allFormData = [];
       let total_form: FormData[] = [];
       var formData = new FormData();
@@ -232,7 +235,7 @@ export class AddComponent implements OnInit {
           "user_id": this.user_id,
           "routine_id": this.routine_id,
           "embed_url": data[i].video_url,
-          "video_type":data[i].video_type
+          "video_type": data[i].video_type
         }
         console.log(postData);
         formData.append('data[]', JSON.stringify(postData));
@@ -241,6 +244,8 @@ export class AddComponent implements OnInit {
       }
       console.log(this.productForm.invalid);
       if (!this.productForm.invalid && (this.sizeSum < 200)) {
+        $('#remove_field_button').prop('disabled', true);
+        $('#add_field_button').prop('disabled', true);
         $('#loader_submit').show();
         $('#submit_button').attr('disabled', 'true');
         this.routineService.addRoutineVideo(formData).subscribe(result => {
@@ -249,10 +254,7 @@ export class AddComponent implements OnInit {
             this.toastr.success(result.message);
             $('#loader_submit').hide();
             $('#submit_button').attr('disabled', 'false');
-            setTimeout(function(){
               this.router.navigate(['/admin/routine-video/list', this.routine_id, this.user_id]);
-            },1000)
-          
           } else {
             this.toastr.error(result.message)
           }
