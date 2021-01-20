@@ -52,6 +52,10 @@ export class AddComponent implements OnInit {
     console.log(this.user_id);
 
   }
+  ngAfterViewInit() {
+    // $('.video_check_inbox').trigger('click');
+    // assume dynamic HTML was added before
+  }
 
   quantities(): FormArray {
     return this.productForm.get("quantities") as FormArray
@@ -72,6 +76,11 @@ export class AddComponent implements OnInit {
 
   addQuantity() {
     this.quantities().push(this.newQuantity());
+    // $('.video_check_inbox').trigger('click');
+  }
+
+  checkVideoRadioInput() {
+    // $('.video_check_inbox').trigger('click');
   }
 
   removeQuantity(i: number) {
@@ -122,7 +131,20 @@ export class AddComponent implements OnInit {
       }
     })
   }
+
+  checkVideoType() {
+    if (!$('#video_type').is(':checked') && !$('#embed_url').is(':checked')) {
+      this.toastr.error('Please select video type first.');
+      return
+    }
+  }
+
   onFileChange(event, i) {
+
+    if (!$('#video_type').is(':checked') && !$('#embed_url').is(':checked')) {
+      this.toastr.error('Please select video type first.');
+      return
+    }
     const reader = new FileReader();
     if (event.target.files.length > 0) {
       const file = event.target.files[0];
@@ -130,7 +152,7 @@ export class AddComponent implements OnInit {
       var re = /(\.WMV|\.mp4|\.MOV)$/i;
       if (!re.exec(file.name)) {
         this.toastr.error('Sorry , Please upload video file')
-        return 
+        return
       }
       else {
         if (event.target.files.length > 0) {
@@ -183,7 +205,7 @@ export class AddComponent implements OnInit {
     this.submitted = true;
     var data = this.productForm.value.quantities;
     var formLength = this.productForm.value.quantities.length;
- 
+
     if (formLength > 0) {
       var allFormData = [];
       let total_form: FormData[] = [];

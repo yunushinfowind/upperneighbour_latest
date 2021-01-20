@@ -3,6 +3,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { ArtistVideoService } from '../artist-video.service';
 
+
 @Component({
   selector: 'app-view',
   templateUrl: './view.component.html',
@@ -19,13 +20,19 @@ export class ViewComponent implements OnInit {
     video_url : ''
   }
   video_link : any
+  local_video :boolean = false;
+  embed_video:boolean = false;
 
   constructor(private dom:DomSanitizer , private artistVideoService: ArtistVideoService, private activatedRoute: ActivatedRoute) { 
     this.activatedRoute.params.subscribe(params => {
       this.Id = params['video_id'];
       this.getDetail(this.Id);
+      console.log('this.video_link');
+      console.log(this.video_link);
     })
     console.log(this.video_link);
+    this.video_link = this.dom.bypassSecurityTrustResourceUrl(this.video_link);
+   
   }
 
   ngOnInit(): void {
@@ -39,6 +46,14 @@ export class ViewComponent implements OnInit {
         this.model.video_thumb = result.data.video_thumb;
         this.video_link = result.data.video_link;
         this.model.video_url = result.data.video_link;
+        console.log('videoType:');
+        console.log(result.data.video_type);
+        if(result.data.video_type == 'video'){
+          this.local_video = true;
+        }else{
+          this.embed_video = true;
+        }
+       
       }
     })
   }

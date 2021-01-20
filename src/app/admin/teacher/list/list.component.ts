@@ -113,22 +113,27 @@ export class ListComponent implements OnInit {
     var currArraylenght =this.currentDrageList.length;
     var temp = this.currentDrageList[event.previousIndex];
     var currArry = this.currentDrageList;
-    if (previousIndex < currentIndex) {
-      for (let i = previousIndex; i <= swapLength; i++) {
-        currArry[i] = currArry[i + 1];
+    if (swapLength > 1) {
+      if (previousIndex < currentIndex) {
+        console.log('froword')
+        for (let i = previousIndex; i <= swapLength; i++) {
+          currArry[i] = currArry[i + 1];
+        }
+      } else {
+        console.log('backword')
+        for (let i = previousIndex; i >= currentIndex; i--) {
+          currArry[i] = currArry[i - 1];
+        }
       }
+      currArry[currentIndex] = temp;
     } else {
-      for (let i = previousIndex; i >= currentIndex; i--) {
-        currArry[i] = currArry[i + 1];
-      }
+      currArry[previousIndex] = this.currentDrageList[event.currentIndex];
+      currArry[currentIndex] = temp;
     }
-     currArry[currentIndex] = temp;
-     this.convertedArray = currArry;
-     console.log('current Arr')
-     console.log(this.currentDrageList)
-     console.log('updated Arr')
-     console.log(currArry)
-     this.updateOrderOfList();
+    console.log(this.currentDrageList)
+    console.log(currArry)
+    this.convertedArray = currArry;
+    this.updateOrderOfList();
   }
 
   getCurrentPage(){

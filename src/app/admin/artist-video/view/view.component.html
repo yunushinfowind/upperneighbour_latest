@@ -46,7 +46,10 @@
                             <hr />
                             <div>
                                 <strong>Video: </strong>
-                                <div class="video">
+                                <div class="video" *ngIf="embed_video">
+                                    <iframe [src]='video_link' frameborder="0" allowfullscreen></iframe>
+                                </div>
+                                <div class="video" *ngIf="local_video">
                                     <video muted  *ngIf="model.video_url" id="video1"  width="300px" height="195px" class="img" controls
                                     >
                                     <source src="{{model.video_url}}" type='video/mp4' />

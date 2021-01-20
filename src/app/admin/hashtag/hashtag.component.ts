@@ -48,8 +48,11 @@ export class HashtagComponent implements OnInit {
 
 
   hashtagSubmit(f: NgForm) {
- 
-    if (f.valid) {
+
+    if(!this.model.hashtagVideo){
+      this.toastr.error('Please select video');
+    }
+    if (f.valid && this.model.hashtagVideo) {
       $('#loader_submit').show();
       this.showLoader = true;
       const formData = new FormData();
@@ -61,7 +64,8 @@ export class HashtagComponent implements OnInit {
           $('#loader_submit').hide();
           this.showLoader = false;
           this.toastr.success(result.message);
-          this.router.navigateByUrl('/admin/hashtag')
+          window.location.reload();
+          // this.router.navigateByUrl('/admin/hashtag')
         } else {
           this.toastr.error(result.message)
         }

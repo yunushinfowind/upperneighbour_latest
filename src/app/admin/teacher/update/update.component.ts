@@ -22,17 +22,17 @@ export class UpdateComponent implements OnInit {
     key_point: '',
     performance: '',
     address: '',
-    emojis:[]
+    emojis: []
   }
   imageSrc: any;
   Id: any;
   teacherDetail: any;
-  showLoader:boolean=false;
-  emojiList:any;
+  showLoader: boolean = false;
+  emojiList: any;
 
 
   public Editor = ClassicEditor;
-  constructor(private elementRef:ElementRef , private toastr: ToastrService, private teacherService: TeacherService, private activatedRoute: ActivatedRoute, private router: Router) { }
+  constructor(private elementRef: ElementRef, private toastr: ToastrService, private teacherService: TeacherService, private activatedRoute: ActivatedRoute, private router: Router) { }
 
   ngOnInit(): void {
     this.activatedRoute.params.subscribe(params => {
@@ -44,17 +44,17 @@ export class UpdateComponent implements OnInit {
 
   ngAfterViewInit() {
     // assume dynamic HTML was added before
-    this.elementRef.nativeElement.querySelector('button').addEventListener('click', this.removeEmoji.bind(this));
+    this.elementRef.nativeElement.querySelector('span').addEventListener('click', this.removeEmoji.bind(this));
   }
 
   openEmoji() {
     console.log('inn')
-    if( $('.select_group').css('display') == 'block' ) {
-      $('.select_group').css({'display':'none'})
-   } else {
-    $('.select_group').css({'display':'block'})
-   }
-   
+    if ($('.select_group').css('display') == 'block') {
+      $('.select_group').css({ 'display': 'none' })
+    } else {
+      $('.select_group').css({ 'display': 'block' })
+    }
+
   }
 
   getTeacherDetail(id) {
@@ -70,26 +70,25 @@ export class UpdateComponent implements OnInit {
         this.model.address = result.data.teacherProfile.address;
         this.imageSrc = result.data.profile
         var emojiArray = result.data.teacherProfile.userEmojis;
-        if(emojiArray.length > 0){
-          for (let i=0;i<emojiArray.length;i++){
-          var image = new Image();
-          image.width = 25;
-          image.id = 'img_'+emojiArray[i].id;
-          image.src = emojiArray[0].emoji;
-          var g = document.createElement('div');
-          g.setAttribute("id", "div"+emojiArray[i].id);
-          g.setAttribute("class", "artist-collection-photo");
-          var button = document.createElement('span');
-          button.setAttribute("class", "close")
-          button.innerHTML = "X"
-          button.addEventListener('click', (e) => {
-            this.removeEmoji(emojiArray[i].id);
-          });
-          // button.setAttribute("onclick", "removeEmoji("+id+")");
-          g.appendChild(button)
-          g.appendChild(image)
-          document.getElementById('emoji-area').appendChild(g);
-          this.model.emojis.push(emojiArray[0].emoji)
+        if (emojiArray.length > 0) {
+          for (let i = 0; i < emojiArray.length; i++) {
+            var image = new Image();
+            image.width = 25;
+            image.id = 'img_' + emojiArray[i].id;
+            image.src = emojiArray[0].emoji;
+            var g = document.createElement('div');
+            g.setAttribute("id", "div" + emojiArray[i].id);
+            g.setAttribute("class", "artist-collection-photo");
+            var button = document.createElement('span');
+            button.setAttribute("class", "close")
+            button.innerHTML = "X"
+            button.addEventListener('click', (e) => {
+              this.removeEmoji(emojiArray[i].id);
+            });
+            g.appendChild(button)
+            g.appendChild(image)
+            document.getElementById('emoji-area').appendChild(g);
+            this.model.emojis.push(emojiArray[0].emoji)
           }
         }
       }
@@ -97,49 +96,42 @@ export class UpdateComponent implements OnInit {
     })
   }
 
-  getEmojiUrl(id:any){
-    $('#emoji_'+id).attr('href');
-    console.log($('#emoji_'+id + '> img').attr('src'));
-    var emoji = $('#emoji_'+id + '> img').attr('src');
+  getEmojiUrl(id: any) {
+    $('#emoji_' + id).attr('href');
+    var emoji = $('#emoji_' + id + '> img').attr('src');
     this.model.emojis.push(emoji);
-   
+
     var image = new Image();
     image.width = 25;
-    image.id = 'img_'+id;
+    image.id = 'img_' + id;
     image.src = emoji;
     var g = document.createElement('div');
-    g.setAttribute("id", "div"+id);
+    g.setAttribute("id", "div" + id);
     g.setAttribute("class", "artist-collection-photo");
     var button = document.createElement('span');
     button.setAttribute("class", "close")
     button.innerHTML = "X"
     button.addEventListener('click', (e) => {
       this.removeEmoji(id);
-     });
-    // button.setAttribute("onclick", "removeEmoji("+id+")");
+    });
     g.appendChild(button)
     g.appendChild(image)
     document.getElementById('emoji-area').appendChild(g);
-    console.log(this.model.emojis)
   }
 
-  public removeEmoji(id)
-  {
-    var removeSrc = $('#img_'+id).attr('src');
-    console.log(removeSrc)
-    var totalArray = this.model.emojis;
-    var index = totalArray.indexOf(removeSrc);
-    console.log(index)
-    if (index > -1) {
-      totalArray.splice(index, 1);
+  public removeEmoji(id) {
+    if (id) {
+      var removeSrc = $('#img_' + id).attr('src');
+      var totalArray = this.model.emojis;
+      var index = totalArray.indexOf(removeSrc);
+      if (index > -1) {
+        totalArray.splice(index, 1);
+      }
+      $('#img_' + id).parent().remove();
     }
-
-    $('#img_'+id).parent().remove();
-    console.log("ID:"+id)
-    console.log(totalArray)
   }
 
-  getEmojiList(){
+  getEmojiList() {
     this.teacherService.getEmojiList(1).subscribe(result => {
       if (result.success) {
         this.emojiList = result.data;

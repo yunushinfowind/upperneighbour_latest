@@ -75,7 +75,7 @@ export class AddComponent implements OnInit {
     g.appendChild(button)
     g.appendChild(image)
     document.getElementById('emoji-area').appendChild(g);
-    console.log(this.model.emojis)
+    
   }
   
  
@@ -83,16 +83,13 @@ export class AddComponent implements OnInit {
   public removeEmoji(id)
   {
     var removeSrc = $('#img_'+id).attr('src');
-    console.log(removeSrc)
     var totalArray = this.model.emojis;
     var index = totalArray.indexOf(removeSrc);
-    console.log(index)
     if (index > -1) {
       totalArray.splice(index, 1);
     }
     $('#img_'+id).parent().remove();
-    console.log("ID:"+id)
-    console.log(totalArray)
+ 
   }
 
   getEmojiList(){

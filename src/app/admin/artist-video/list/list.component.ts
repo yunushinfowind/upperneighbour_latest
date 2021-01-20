@@ -132,12 +132,8 @@ export class ListComponent implements OnInit {
 
 
   onFileChange(event, videoId) {
-    console.log($("#slice_" + videoId).is(":disabled"));
-    console.log($("#slice_dis_" + videoId).is(":disabled"));
-
     if ($("#slice_" + videoId).is(":disabled") || $("#slice_dis_" + videoId).is(":disabled")) {
       this.video_id = videoId;
-      console.log(this.video_id)
       const reader = new FileReader();
       if (event.target.files.length > 0) {
         const file = event.target.files[0];
@@ -172,18 +168,27 @@ export class ListComponent implements OnInit {
     var currArraylenght =this.currentDrageList.length;
     var temp = this.currentDrageList[event.previousIndex];
     var currArry = this.currentDrageList;
-    if (previousIndex < currentIndex) {
-      for (let i = previousIndex; i <= swapLength; i++) {
-        currArry[i] = currArry[i + 1];
+    if (swapLength > 1) {
+      if (previousIndex < currentIndex) {
+        console.log('froword')
+        for (let i = previousIndex; i <= swapLength; i++) {
+          currArry[i] = currArry[i + 1];
+        }
+      } else {
+        console.log('backword')
+        for (let i = previousIndex; i >= currentIndex; i--) {
+          currArry[i] = currArry[i - 1];
+        }
       }
+      currArry[currentIndex] = temp;
     } else {
-      for (let i = previousIndex; i >= currentIndex; i--) {
-        currArry[i] = currArry[i + 1];
-      }
+      currArry[previousIndex] = this.currentDrageList[event.currentIndex];
+      currArry[currentIndex] = temp;
     }
-     currArry[currentIndex] = temp;
-     this.convertedArray = currArry;
-     this.updateOrderOfList();
+    console.log(this.currentDrageList)
+    console.log(currArry)
+    this.convertedArray = currArry;
+    this.updateOrderOfList();
   }
 
   getCurrentPage(){
@@ -213,7 +218,6 @@ export class ListComponent implements OnInit {
       result => {
         if (result.success == true) {
           this.currentDrageList = result.data.rows;
-          // console.log(this.currentDrageList)
         }
       }
     )
