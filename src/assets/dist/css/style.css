@@ -10,6 +10,30 @@
 .card-body a.btn {
     margin: 2px;
 }
+div#emoji-area .artist-collection-photo {
+    display: inline-block;
+}
+div#emoji-area .close {
+    background: #f00;
+    opacity: 1;
+    text-shadow: none;
+    display: inline-block;
+    color: #fff;
+    font-size: 10px;
+    width: 15px;
+    height: 15px;
+    text-align: center;
+    line-height: 15px;
+    border-radius: 50%;
+    margin-left: -7px;
+    position: relative;
+} 
+div#emoji-area .close:hover{
+    cursor: pointer;
+}
+.table .btn{
+    font-size: 12px !important;
+}
 button#search_refresh {
     float: left;
     height: calc(1.5em + .5rem + 2px);
@@ -116,7 +140,7 @@ div table.table tbody td:nth-child(2) {
     align-items: center;
     justify-content: center;
 }
-.form-emoji-div textarea.form-control {
+.form-emoji-div textarea.form-control { 
     max-height: 38px;
     border-radius: .25rem .25rem 0 0;
     padding-left: 40px;
@@ -126,7 +150,7 @@ div table.table tbody td:nth-child(2) {
     border-radius: 0 0 .25rem .25rem;
     /* border: 1px solid #ced4da; */
     border-top: none;
-    overflow: inherit;
+    overflow: inherit; 
 }
 .form-emoji-div .emoji-menu > div {
     min-width: 100%;
@@ -213,7 +237,7 @@ form .table td .mb-2 .form-check {
 }
 .form-group .form-control[type="file"],
 .input-group .form-control[type="file"] {
-    color: #fff;
+   /* color: #fff;*/
     overflow: hidden;
     max-width: 25%;
     font-size: .64rem;
