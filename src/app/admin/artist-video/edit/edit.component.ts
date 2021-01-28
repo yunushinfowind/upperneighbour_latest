@@ -3,7 +3,7 @@ import { NgForm } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ArtistVideoService } from '../artist-video.service';
-
+import { environment } from '../../../../environments/environment';
 
 
 @Component({
@@ -30,8 +30,11 @@ export class EditComponent implements OnInit {
   video_id: any;
   user_id:any;
   routine_id:any;
+  BASEURL:any;
 
-  constructor(private activatedRoute: ActivatedRoute, private toastr: ToastrService, private artistVideoService: ArtistVideoService, private router: Router) { }
+  constructor(private activatedRoute: ActivatedRoute, private toastr: ToastrService, private artistVideoService: ArtistVideoService, private router: Router) { 
+    this.BASEURL = environment.BASEURL;
+  }
 
   ngOnInit(): void {
     this.activatedRoute.params.subscribe(params => {
@@ -74,6 +77,7 @@ export class EditComponent implements OnInit {
           this.showLoader = false;
           this.toastr.success(result.message);
           // this.router.navigate(['/admin/routine-video/list',this.routine_id , this.user_id])
+          window.location.href = this.BASEURL+"/admin/artist-video/list/"+this.user_id
         } else {
           this.toastr.error(result.message)
         }

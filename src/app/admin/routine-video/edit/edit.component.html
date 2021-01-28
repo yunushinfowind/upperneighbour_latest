@@ -41,7 +41,7 @@
                                             </div>
                                         </div>
                                         <div class="bootstrap-timepicker">
-                                            <img [src]="imageSrc" *ngIf="imageSrc" style="height: 100px; width:100px">
+                                            
                                             <div class="form-group" *ngIf="this.model.video_type!='embed_url'">
                                                 <label>Video:</label>
                                                 <div class="input-group date">
@@ -56,7 +56,7 @@
                                                     <input type="url" class="form-control" name="embed_url" [(ngModel)]="model.embed_url" #video_title="ngModel"/>
                                                 </div>
                                             </div>
-
+                                            <img [src]="imageSrc" *ngIf="imageSrc" style="height: 100px; width:100px">
                                             <div class="form-group" *ngIf="this.model.video_type=='embed_url'">
                                                 <label>Video Thumb:</label>
                                                 <div class="input-group date">

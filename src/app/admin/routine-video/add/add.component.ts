@@ -5,7 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { RoutineVideoService } from '../routine-video.service';
 import { FormGroup, FormControl, FormArray, FormBuilder, Validators } from '@angular/forms'
 import { RoutineService } from '../../routine/routine.service';
-
+import { environment } from '../../../../environments/environment';
 
 
 @Component({
@@ -38,7 +38,10 @@ export class AddComponent implements OnInit {
   videos: any = [];
   thumbs: any = [];
   sizeSum: any = 0;
+  BASEURL:any;
+
   constructor(private fb: FormBuilder, private activatedRoute: ActivatedRoute, private toastr: ToastrService, private routineService: RoutineVideoService, private router: Router, private routineSer: RoutineService) {
+    this.BASEURL = environment.BASEURL;
     this.productForm = this.fb.group({
       name: '',
       quantities: this.fb.array([]),
@@ -254,7 +257,8 @@ export class AddComponent implements OnInit {
             this.toastr.success(result.message);
             $('#loader_submit').hide();
             $('#submit_button').attr('disabled', 'false');
-              this.router.navigate(['/admin/routine-video/list', this.routine_id, this.user_id]);
+              // this.router.navigate(['/admin/routine-video/list', this.routine_id, this.user_id]);
+              window.location.href = this.BASEURL+"/admin/routine-video/list/"+this.routine_id+'/'+this.user_id
           } else {
             this.toastr.error(result.message)
           }

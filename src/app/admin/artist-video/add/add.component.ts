@@ -5,7 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { FormGroup, FormControl, FormArray, FormBuilder, Validators } from '@angular/forms'
 import { ArtistVideoService } from '../artist-video.service';
 import { TeacherService } from '../../teacher/teacher.service';
-
+import { environment } from '../../../../environments/environment';
 
 @Component({
   selector: 'app-add',
@@ -35,8 +35,10 @@ export class AddComponent implements OnInit {
   submitted = false;
   videos: any = [];
   thumbs: any = [];
+  BASEURL:any;
 
   constructor(private fb: FormBuilder, private activatedRoute: ActivatedRoute, private toastr: ToastrService, private artistVideoService: ArtistVideoService, private router: Router, private teacherService: TeacherService) {
+    this.BASEURL = environment.BASEURL;
     this.productForm = this.fb.group({
       name: '',
       quantities: this.fb.array([]),
@@ -235,7 +237,7 @@ export class AddComponent implements OnInit {
             this.toastr.success(result.message);
             $('#loader_submit').hide();
             $('#submit_button').attr('disabled', 'false');
-            this.router.navigate(['/admin/artist-video/list/' + this.user_id]);
+            window.location.href = this.BASEURL+"/admin/artist-video/list/"+this.user_id
           } else {
             this.toastr.error(result.message)
           }

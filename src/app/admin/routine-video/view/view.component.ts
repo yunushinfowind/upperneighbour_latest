@@ -24,6 +24,8 @@ export class ViewComponent implements OnInit {
   }
   video_link: any
   video_link_url: any;
+  local_video :boolean = false;
+  embed_video:boolean = false;
 
   constructor(private dom: DomSanitizer, private routineService: RoutineVideoService, private activatedRoute: ActivatedRoute) {
     this.activatedRoute.params.subscribe(params => {
@@ -46,9 +48,14 @@ export class ViewComponent implements OnInit {
       if (result.success) {
         this.routineVideoDetail = result.data;
         this.model.video_thumb = result.data.video_thumb;
-        this.video_link = result.data.video_link;
         this.model.video_url = result.data.video_link;
         this.model.routine_name = result.data.routine.routine_name
+        this.video_link = this.dom.bypassSecurityTrustResourceUrl(result.data.video_link);
+        if(result.data.video_type == 'video'){
+          this.local_video = true;
+        }else{
+          this.embed_video = true;
+        }
       }
     })
   }
