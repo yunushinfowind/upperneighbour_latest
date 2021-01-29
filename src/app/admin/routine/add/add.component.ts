@@ -67,7 +67,8 @@ export class AddComponent implements OnInit {
           this.toastr.success(result.message);
           window.location.href = this.BASEURL+"/admin/routine/list/"+this.user_id
         } else {
-          this.toastr.error(result.message)
+          this.toastr.error(result.message);
+          this.showLoader = false;
         }
       },
         error => {

@@ -27,21 +27,21 @@
                                     <form #routineForm="ngForm" (ngSubmit)="routineSubmit(routineForm)">
                                         <div class="form-group">
                                             <label>Routine Name:</label>
-                                            <input type="text" required name="routine_name" [(ngModel)]="model.routine_name" #routine_name="ngModel" class="form-control" placeholder="routine name">
+                                            <input type="text" required name="routine_name" [(ngModel)]="model.routine_name" #routine_name="ngModel" class="form-control" placeholder="Routine name">
                                             <div class="alert-danger" *ngIf="(routine_name.touched && !routine_name.valid)||(routineForm.submitted && !routine_name.valid)">
                                                 <div *ngIf="routine_name.errors.required">Routine name is required.</div>
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <label>Routine Description:</label>
-                                            <input type="text" required name="routine_description" [(ngModel)]="model.routine_description" #routine_description="ngModel" class="form-control" placeholder="routine description">
+                                            <input type="text" required name="routine_description" [(ngModel)]="model.routine_description" #routine_description="ngModel" class="form-control" placeholder="Routine description">
                                             <div class="alert-danger" *ngIf="(routine_description.touched && !routine_description.valid)||(routineForm.submitted && !routine_description.valid)">
                                                 <div *ngIf="routine_description.errors.required">Routine description is required.</div>
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <label>Routine level:</label>
-                                            <input type="text" required name="routine_level" [(ngModel)]="model.routine_level" #routine_level="ngModel" class="form-control" placeholder="routine level">
+                                            <input type="text" required name="routine_level" [(ngModel)]="model.routine_level" #routine_level="ngModel" class="form-control" placeholder="Routine level">
                                             <div class="alert-danger" *ngIf="(routine_level.touched && !routine_level.valid)||(routineForm.submitted && !routine_level.valid)">
                                                 <div *ngIf="routine_level.errors.required">Routine level is required.</div>
                                             </div>
@@ -62,13 +62,13 @@
                                         <div class="bootstrap-timepicker">
                                             <img [src]="imageSrc" *ngIf="imageSrc" style="height: 100px; width:100px">
                                             <div class="form-group">
-                                                <label>Profile:</label>
+                                                <label>Routine Image:</label>
                                                 <div class="input-group date">
                                                     <input  accept="image/*"  type="file" class="form-control" (change)="onFileChange($event)"
                                                        />
                                                 </div>
                                                 <div class="alert-danger" *ngIf="routineForm.submitted && !model.image">
-                                                    <div >Profile is required.</div>
+                                                    <div >Routine Image is required.</div>
                                                 </div>
                                             </div>
                                         </div>

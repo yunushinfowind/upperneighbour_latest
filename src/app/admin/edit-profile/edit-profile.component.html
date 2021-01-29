@@ -20,14 +20,14 @@
                             <form #adminForm="ngForm" (ngSubmit)="adminSubmit(adminForm)">
                                 <div class="form-group">
                                     <label>Full Name:</label>
-                                    <input type="text" required name="fullname" [(ngModel)]="model.fullname" #fullname="ngModel" class="form-control" placeholder="fullname">
+                                    <input type="text" required name="fullname" [(ngModel)]="model.fullname" #fullname="ngModel" class="form-control" placeholder="Fullname">
                                     <div class="alert-danger" *ngIf="(fullname.touched && !fullname.valid)||(adminForm.submitted && !fullname.valid)">
                                         <div *ngIf="fullname.errors.required">Full Name is required.</div>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label>Email:</label>
-                                    <input [disabled]='true' type="text" required name="email" [(ngModel)]="model.email" #email="ngModel" class="form-control" placeholder="email">
+                                    <input [disabled]='true' type="text" required name="email" [(ngModel)]="model.email" #email="ngModel" class="form-control" placeholder="Email">
                                 </div>
                                 <div class="bootstrap-timepicker">
                                     <img [src]="imageSrc" *ngIf="imageSrc" style="height: 100px; width:100px">

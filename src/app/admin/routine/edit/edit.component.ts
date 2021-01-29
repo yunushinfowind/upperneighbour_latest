@@ -78,7 +78,8 @@ export class EditComponent implements OnInit {
           this.toastr.success(result.message);
           this.router.navigate(['/admin/routine/list',this.user_id]);
         } else {
-          this.toastr.error(result.message)
+          this.toastr.error(result.message);
+          this.showLoader = false;
         }
       },
         error => {

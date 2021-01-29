@@ -27,7 +27,7 @@
                                 <div class="form-group">
                                     <label>Title:</label>
                                     <input type="text" required name="title" [(ngModel)]="model.title" #title="ngModel"
-                                        class="form-control" placeholder="title">
+                                        class="form-control" placeholder="Title">
                                     <div class="alert-danger" *ngIf="(blogForm.submitted && !title.valid)">
                                         <div *ngIf="title.errors.required">Title is required.</div>
                                     </div>
@@ -57,7 +57,7 @@
                                     <div class="form-group">
                                         <label>Url:</label>
                                         <input type="text" required name="url" [(ngModel)]="model.url"
-                                            #url="ngModel" class="form-control" placeholder="url">
+                                            #url="ngModel" class="form-control" placeholder="URL">
                                         <div class="alert-danger" *ngIf="(blogForm.submitted && !url.valid)">
                                             <div *ngIf="url.errors.required">URL is required.</div>
                                         </div>
