@@ -6,8 +6,7 @@ import { Router } from '@angular/router';
 import { TeacherService } from '../teacher.service';
 import * as $ from 'jquery';
 import { EmojiScriptServiceService } from '../emoji-script-service.service';
-import { emojiarea } from "../../../../assets/packs/jquery.emojiarea.js";
-
+import { environment } from '../../../../environments/environment';
 
 @Component({
   selector: 'app-add',
@@ -31,14 +30,20 @@ export class AddComponent implements OnInit {
   showLoader:boolean=false;
   addscript : boolean = false;
   emojiList:any;
-
+  BASEURL:any;
 
   public Editor = ClassicEditor;
-  constructor(private elementRef:ElementRef , private emojiScript: EmojiScriptServiceService , private toastr: ToastrService, private teacherService: TeacherService, private router: Router) { }
+  constructor(private elementRef:ElementRef , private emojiScript: EmojiScriptServiceService , private toastr: ToastrService, private teacherService: TeacherService, private router: Router) {
+    this.BASEURL = environment.BASEURL;
+   }
 
   ngOnInit(): void {
     this.getEmojiList();
+    $(".form-emoji-div").keydown(function(event) { 
+      return false;
+    });
   }
+
   ngAfterViewInit() {
     // assume dynamic HTML was added before
     this.elementRef.nativeElement.querySelector('span').addEventListener('click', this.removeEmoji.bind(this));
@@ -125,7 +130,8 @@ export class AddComponent implements OnInit {
         if (result.success) {
           this.showLoader = false;
           this.toastr.success(result.message);
-          this.router.navigateByUrl('/admin/artist/list')
+          // this.router.navigateByUrl('/admin/artist/list')
+          window.location.href = this.BASEURL+"/admin/artist/list";
         } else {
           this.toastr.error(result.message)
         }

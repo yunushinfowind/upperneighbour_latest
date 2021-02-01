@@ -40,6 +40,9 @@ export class UpdateComponent implements OnInit {
     })
     this.getTeacherDetail(this.Id);
     this.getEmojiList();
+    $(".form-emoji-div").keydown(function(event) { 
+      return false;
+    });
   }
 
   ngAfterViewInit() {
@@ -75,7 +78,7 @@ export class UpdateComponent implements OnInit {
             var image = new Image();
             image.width = 25;
             image.id = 'img_' + emojiArray[i].id;
-            image.src = emojiArray[0].emoji;
+            image.src = emojiArray[i].emoji;
             var g = document.createElement('div');
             g.setAttribute("id", "div" + emojiArray[i].id);
             g.setAttribute("class", "artist-collection-photo");
@@ -88,7 +91,7 @@ export class UpdateComponent implements OnInit {
             g.appendChild(button)
             g.appendChild(image)
             document.getElementById('emoji-area').appendChild(g);
-            this.model.emojis.push(emojiArray[0].emoji)
+            this.model.emojis.push(emojiArray[i].emoji)
           }
         }
       }
@@ -147,7 +150,7 @@ export class UpdateComponent implements OnInit {
 
 
   teacherSubmit(f: NgForm) {
-
+    console.log(this.model.emojis);
     if (f.valid) {
       this.showLoader = true;
       const formData = new FormData();

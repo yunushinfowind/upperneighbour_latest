@@ -5,7 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { FormGroup, FormControl, FormArray, FormBuilder, Validators } from '@angular/forms'
 import { ArtistVideoService } from '../artist-video.service';
 import { TeacherService } from '../../teacher/teacher.service';
-
+import { environment } from '../../../../environments/environment';
 
 @Component({
   selector: 'app-add',
@@ -35,8 +35,13 @@ export class AddComponent implements OnInit {
   submitted = false;
   videos: any = [];
   thumbs: any = [];
+  BASEURL: any;
+  buttonDisabled :boolean = false;
+  checkVideo :boolean=false;
+  formLength :any;
 
   constructor(private fb: FormBuilder, private activatedRoute: ActivatedRoute, private toastr: ToastrService, private artistVideoService: ArtistVideoService, private router: Router, private teacherService: TeacherService) {
+    this.BASEURL = environment.BASEURL;
     this.productForm = this.fb.group({
       name: '',
       quantities: this.fb.array([]),
@@ -76,7 +81,12 @@ export class AddComponent implements OnInit {
 
   addQuantity() {
     this.quantities().push(this.newQuantity());
-    // $('.video_check_inbox').trigger('click');
+    var form_num = this.quantities().controls.length-1;
+    this.formLength = form_num;
+    setTimeout(function(){
+      $('.video_type_'+form_num).trigger('click');
+    },500);
+    
   }
 
   checkVideoRadioInput() {
@@ -149,12 +159,29 @@ export class AddComponent implements OnInit {
     if (event.target.files.length > 0) {
       const file = event.target.files[0];
       var type = file.name.split('?')[0].split('.').pop();
-      var re = /(\.WMV|\.mp4|\.MOV)$/i;
+      var re = /(\.mp4|\.MOV)$/i;
       if (!re.exec(file.name)) {
-        this.toastr.error('Sorry , Please upload video file')
+        this.toastr.error('Sorry , Please upload mp4/MOV video file');
+        $('#video_'+i).val('');
+        this.buttonDisabled = true;
+        console.log('innnn disable')
         return
       }
       else {
+
+        this.checkVideo = false;
+        for(let j=0;j< this.formLength;j++){
+          if($('#video_'+j).is(':checked') && !$('#video_'+j).val()){
+            this.checkVideo = true;
+          }
+        }
+
+        if(this.checkVideo){
+          this.buttonDisabled = true;
+        }else{
+          this.buttonDisabled = false;
+        }
+        
         if (event.target.files.length > 0) {
           const file = event.target.files[0];
           let data = {
@@ -235,7 +262,7 @@ export class AddComponent implements OnInit {
             this.toastr.success(result.message);
             $('#loader_submit').hide();
             $('#submit_button').attr('disabled', 'false');
-            this.router.navigate(['/admin/artist-video/list/' + this.user_id]);
+            window.location.href = this.BASEURL + "/admin/artist-video/list/" + this.user_id
           } else {
             this.toastr.error(result.message)
           }

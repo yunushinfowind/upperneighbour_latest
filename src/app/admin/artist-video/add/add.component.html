@@ -55,7 +55,7 @@
                                                 <div ng-init="video_type=video" class="mb-2">
                                                    
                                                     <div class="form-check">
-                                                        <input type="radio" class="form-check-input video_check_inbox" id="video_type" formControlName="video_type" value="video" (change)="onTypeChange($event,i)">
+                                                        <input type="radio" class="form-check-input video_check_inbox video_type_{{i}}" id="video_type" formControlName="video_type" value="video" (change)="onTypeChange($event,i)">
                                                         <label class="form-check-label" for="">Video</label>
                                                     </div>
                                                     or
@@ -70,7 +70,7 @@
                                                 <span id="video_div_{{i}}" >
                                                     <div class="form-group">
                                                         <label>Video:</label>
-                                                        <input type="file"  formControlName="video" (change)="onFileChange($event,i)"  class="form-control add-video">
+                                                        <input type="file" id="video_{{i}}" formControlName="video" (change)="onFileChange($event,i)"  class="form-control add-video">
                                                         <div *ngIf="submitted && quantity.controls.video.errors">
                                                             <div class="alert-danger" *ngIf="quantity.controls.video.errors.required">Video is required</div>
                                                         </div>
@@ -95,12 +95,12 @@
                                                 
                                              </td>
                                             <td>
-                                                <button (click)="removeQuantity(i)" id="remove_field_button" class="btn btn-sm btn-danger">Remove</button>
+                                                <button (click)="removeQuantity(i)"  id="remove_field_button" class="btn btn-sm btn-danger">Remove</button>
                                             </td>
                                           </tr>
                                         </table>
                                        
-                                        <button id="submit_button" type="submit" class="btn btn-primary">Submit<span id="loader_submit" style="display: none;"> <i
+                                        <button id="submit_button" [disabled]="buttonDisabled" type="submit" class="btn btn-primary">Submit<span id="loader_submit" style="display: none;"> <i
                                             class="fas fa-sync fa-spin"></i></span></button>
                                         
                                       </form>

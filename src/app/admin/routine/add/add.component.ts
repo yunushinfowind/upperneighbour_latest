@@ -3,6 +3,7 @@ import { NgForm } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { ActivatedRoute, Router } from '@angular/router';
 import { RoutineService } from '../routine.service';
+import { environment } from '../../../../environments/environment';
 
 @Component({
   selector: 'app-add',
@@ -22,8 +23,11 @@ export class AddComponent implements OnInit {
   showLoader:boolean=false;
   artistList :any;
   user_id:any;
+  BASEURL:any;
 
-  constructor(private activatedRoute:ActivatedRoute, private toastr: ToastrService, private routineService: RoutineService, private router: Router) { }
+  constructor(private activatedRoute:ActivatedRoute, private toastr: ToastrService, private routineService: RoutineService, private router: Router) {
+    this.BASEURL = environment.BASEURL;
+   }
 
   ngOnInit(): void {
     this.activatedRoute.params.subscribe(params => {
@@ -61,9 +65,10 @@ export class AddComponent implements OnInit {
         if (result.success) {
           this.showLoader = false;
           this.toastr.success(result.message);
-          this.router.navigate(['/admin/routine/list',this.user_id]);
+          window.location.href = this.BASEURL+"/admin/routine/list/"+this.user_id
         } else {
-          this.toastr.error(result.message)
+          this.toastr.error(result.message);
+          this.showLoader = false;
         }
       },
         error => {

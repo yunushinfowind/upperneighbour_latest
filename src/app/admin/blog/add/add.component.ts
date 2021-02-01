@@ -4,6 +4,7 @@ import { NgForm } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { BlogService } from '../blog.service';
 import { Router } from '@angular/router';
+import { environment } from '../../../../environments/environment';
 
 
 
@@ -22,9 +23,12 @@ export class AddComponent implements OnInit {
   }
   imageSrc:any;
   showLoader:boolean=false;
+  BASEURL:any;
 
   public Editor = ClassicEditor;
-  constructor(private toastr: ToastrService, private blogService:BlogService ,private router : Router) { }
+  constructor(private toastr: ToastrService, private blogService:BlogService ,private router : Router) { 
+    this.BASEURL = environment.BASEURL;
+  }
 
   ngOnInit(): void {
   }
@@ -43,7 +47,7 @@ export class AddComponent implements OnInit {
         if (result.success) {
           this.toastr.success(result.message);
           this.showLoader = false;
-          this.router.navigateByUrl('/admin/blog/list')
+          window.location.href = this.BASEURL+"/admin/blog/list"
         } else {
           this.toastr.error(result.message)
         }

@@ -46,6 +46,7 @@ export class ListComponent implements OnInit {
     this.currentPage = 1;
     this.getCurrentList();
   }
+  
 
   artistVideoList(page) {
     let search = ($('.table_search').val())?($('.table_search').val()):'';

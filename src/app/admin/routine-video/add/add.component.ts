@@ -5,7 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { RoutineVideoService } from '../routine-video.service';
 import { FormGroup, FormControl, FormArray, FormBuilder, Validators } from '@angular/forms'
 import { RoutineService } from '../../routine/routine.service';
-
+import { environment } from '../../../../environments/environment';
 
 
 @Component({
@@ -38,7 +38,13 @@ export class AddComponent implements OnInit {
   videos: any = [];
   thumbs: any = [];
   sizeSum: any = 0;
+  BASEURL: any;
+  buttonDisabled :boolean = false;
+  checkVideo :boolean=false;
+  formLength :any;
+
   constructor(private fb: FormBuilder, private activatedRoute: ActivatedRoute, private toastr: ToastrService, private routineService: RoutineVideoService, private router: Router, private routineSer: RoutineService) {
+    this.BASEURL = environment.BASEURL;
     this.productForm = this.fb.group({
       name: '',
       quantities: this.fb.array([]),
@@ -106,6 +112,11 @@ export class AddComponent implements OnInit {
 
   addQuantity() {
     this.quantities().push(this.newQuantity());
+    var form_num = this.quantities().controls.length-1;
+    this.formLength = form_num;
+    setTimeout(function(){
+      $('.video_type_'+form_num).trigger('click');
+    },500);
   }
 
   removeQuantity(i: number) {
@@ -169,34 +180,52 @@ export class AddComponent implements OnInit {
       }
     })
   }
+
   onFileChange(event, i) {
     const reader = new FileReader();
     if (event.target.files.length > 0) {
       const file = event.target.files[0];
       var type = file.name.split('?')[0].split('.').pop();
-      var re = /(\.WMV|\.mp4|\.MOV)$/i;
+      var re = /(\.mp4|\.MOV)$/i;
       if (!re.exec(file.name)) {
-        this.toastr.error('Sorry , Please upload video file')
-        return 
+        this.toastr.error('Sorry , Please upload mp4/MOV video file');
+        $('#video_'+i).val('');
+        this.buttonDisabled = true;
+        
+        return
       }
-     else {
-      if (event.target.files.length > 0) {
-        const file = event.target.files[0];
-        var size = event.target.files[0].size / 1000 / 1000;
-        size = Math.round(size * 10) / 10
-        this.sizeSum = this.sizeSum + size;
-        console.log('size:' + this.sizeSum)
-        let data = {
-          index: i,
-          file: file
+      else {
+        
+        this.checkVideo = false;
+        for(let j=0;j< this.formLength;j++){
+          if($('#video_'+j).is(':checked') && !$('#video_'+j).val()){
+            this.checkVideo = true;
+          }
         }
-        this.videos[i] = file;
-        if (this.sizeSum > 200) {
-          this.toastr.error('Sorry , size of video has been exceeded from 200 MB.')
+
+        if(this.checkVideo){
+          this.buttonDisabled = true;
+        }else{
+          this.buttonDisabled = false;
+        }
+
+        if (event.target.files.length > 0) {
+          const file = event.target.files[0];
+          var size = event.target.files[0].size / 1000 / 1000;
+          size = Math.round(size * 10) / 10
+          this.sizeSum = this.sizeSum + size;
+          console.log('size:' + this.sizeSum)
+          let data = {
+            index: i,
+            file: file
+          }
+          this.videos[i] = file;
+          if (this.sizeSum > 200) {
+            this.toastr.error('Sorry , size of video has been exceeded from 200 MB.')
+          }
         }
       }
     }
-  }
   }
 
   onFileThumbChange(event, i) {
@@ -223,7 +252,7 @@ export class AddComponent implements OnInit {
     this.submitted = true;
     var data = this.productForm.value.quantities;
     var formLength = this.productForm.value.quantities.length;
-    
+
     if (formLength > 0) {
       var allFormData = [];
       let total_form: FormData[] = [];
@@ -254,7 +283,8 @@ export class AddComponent implements OnInit {
             this.toastr.success(result.message);
             $('#loader_submit').hide();
             $('#submit_button').attr('disabled', 'false');
-              this.router.navigate(['/admin/routine-video/list', this.routine_id, this.user_id]);
+            // this.router.navigate(['/admin/routine-video/list', this.routine_id, this.user_id]);
+            window.location.href = this.BASEURL + "/admin/routine-video/list/" + this.routine_id + '/' + this.user_id
           } else {
             this.toastr.error(result.message)
           }
