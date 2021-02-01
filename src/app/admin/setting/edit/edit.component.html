@@ -12,7 +12,7 @@
             <section class="content">
                 <div class="container-fluid">
                     <div class="row">
-                        <div class="col-md-10">
+                        <div class="col-md-12">
 
                             <div class="card card-info">
                                 <div class="card-header">
@@ -21,25 +21,25 @@
                                 <div class="card-body">
                                     <form #setting="ngForm" (ngSubmit)="settingSubmit(setting)">
                                       
-                                        <table class="table table-bordered">
+                                        <table class="table table-bordered setting-form">
                                           <tr >
                                             <td>
-                                                Key :
+                                                <label>Key :</label>
                                                 <input type="text" [disabled]="true"  value="Slice user name" class="text-row form-control">
                                             </td>
                                             <td>
-                                                value :
+                                                <label>Value :</label>
                                                 <input type="text" required name="slice_user_name" [(ngModel)]="model.slice_user_name" #slice_user_name="ngModel" class="form-control" placeholder="slice username">
                                                
                                             </td>
                                           </tr>
                                           <tr >
                                             <td>
-                                                Key :
+                                               <label>Key :</label>
                                                 <input type="text" [disabled]="true" readonly  value="Slice Password" class="text-row form-control">
                                             </td>
                                             <td>
-                                                value :
+                                               <label>Value :</label>
                                                 <input type="text" required name="slice_password" [(ngModel)]="model.slice_password" #slice_password="ngModel" class="form-control" placeholder="slice password">
                                                 
                                             </td>

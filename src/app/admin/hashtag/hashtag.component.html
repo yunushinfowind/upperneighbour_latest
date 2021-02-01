@@ -11,22 +11,22 @@
     <section class="content">
         <div class="container-fluid">
             <div class="row">
-                <div class="col-md-8">
+                <div class="col-md-12">
 
                     <div class="card card-primary">
                         <div class="card-header">
-                            <h3 class="card-title">Add Hashtag</h3>
+                            <h3 class="card-title">Add Hashtag</h3> 
                         </div>
                         <div class="card-body">
                             <form #hashtagForm="ngForm" (ngSubmit)="hashtagSubmit(hashtagForm)">
-                                <div class="form-group">
-                                    <label>Hashtag:</label>
+                                <div class="form-group"> 
+                                    <label>Hashtag:</label> 
                                     <input type="text" required name="hashtag" [(ngModel)]="model.hashtag" #hashtag="ngModel" class="form-control" placeholder="Hashtag">
                                     <div class="alert-danger" *ngIf="(hashtag.touched && !hashtag.valid)||(hashtagForm.submitted && !hashtagForm.valid)">
-                                        <div *ngIf="hashtagForm.errors.required">Hashtag is required.</div>
+                                        <div *ngIf="hashtagForm.errors.required">Hashtag is required.</div> 
                                     </div>
                                 </div>
-                                 <div class="form-group">
+                                 <div class="form-group"> 
                                     <label>Hashtag Video:</label><br>
                                     <img [src]="imageSrc" *ngIf="imageSrc" style="height: 100px; width:100px">
                                     <div class="input-group date">
