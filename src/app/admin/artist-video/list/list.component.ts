@@ -67,6 +67,11 @@ export class ListComponent implements OnInit {
     )
   }
 
+  handlePageChange(page){
+    this.currentPage = page;
+    this.artistVideoList(this.currentPage);
+  }
+
   deleteArtistVideo(id: any) {
     if (confirm("Are you sure to delete ?")) {
       this.artistVideoService.deleteArtistVideo(id).subscribe(
@@ -193,7 +198,6 @@ export class ListComponent implements OnInit {
   }
 
   getCurrentPage(){
-    this.currentPage = $('#second ul .current span').eq(1).text();
     this.getCurrentList();
   }
   /*to update order of list*/

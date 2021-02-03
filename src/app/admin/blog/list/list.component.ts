@@ -54,6 +54,11 @@ export class ListComponent implements OnInit {
     )
   }
 
+  chandlePageChange(page){
+    this.currentPage = page;
+    this.blogList(page);
+  }
+
   deleteBlog(id: any) {
     if (confirm("Are you sure to delete ?")) {
       this.blogService.deleteBlog(id).subscribe(
@@ -117,7 +122,6 @@ export class ListComponent implements OnInit {
   }
 
   getCurrentPage() {
-    this.currentPage = $('#second ul .current span').eq(1).text();
     this.getCurrentList();
   }
   /*to update order of list*/

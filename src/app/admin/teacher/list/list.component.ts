@@ -54,6 +54,11 @@ export class ListComponent implements OnInit {
     )
   }
 
+  handlePageChange(event){
+    this.currentPage = event;
+    this.teacherList(event);
+  }
+
   onChangePage(pageOfItems: Array<any>) {
     // update current page of items
     this.pageOfItems = pageOfItems;
@@ -137,7 +142,6 @@ export class ListComponent implements OnInit {
   }
 
   getCurrentPage(){
-    this.currentPage = $('#second ul .current span').eq(1).text();
     this.getCurrentList();
   }
   /*to update order of list*/
@@ -162,7 +166,6 @@ export class ListComponent implements OnInit {
       result => {
         if (result.success == true) {
           this.currentDrageList = result.data.rows;
-          // console.log(this.currentDrageList)
         }
       }
     )

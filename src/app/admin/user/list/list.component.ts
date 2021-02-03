@@ -45,6 +45,11 @@ export class ListComponent implements OnInit {
       }
     )
   }
+
+  chandlePageChange(page){
+    this.currentPage = page;
+    this.teacherList(page);
+  }
   onChangePage(pageOfItems: Array<any>) {
     // update current page of items
     this.pageOfItems = pageOfItems;

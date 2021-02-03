@@ -48,18 +48,18 @@
                                             <th>Profession</th>
                                             <th>Address</th>
                                             <th>Status</th>
-                                            <th>Action</th>
+                                            <th class="last">Action</th>
                                         </tr>
                                     </thead>
                                     <tbody cdkDropList class="example-list mt-20" (cdkDropListDropped)="drop($event)">
                                         
                                         <tr *ngIf="showLoader">
-                                            <td colspan="7">
+                                            <td class="loader-td" colspan="7">
                                                 <i class="fas 3x fa-spinner fa-spin"></i>
                                             </td>
                                         </tr>
                                         
-                                        <tr cdkDrag id="row_{{teacher.id}}" *ngFor="let teacher of List | paginate: { itemsPerPage: 10, currentPage: currentPage, id: 'second' } ; let i = index">
+                                        <tr cdkDrag id="row_{{teacher.id}}" *ngFor="let teacher of List | paginate: { itemsPerPage: 10, currentPage: currentPage, id: 'second',totalItems: total } ; let i = index">
                                             <td>{{(i+1)+(10*(currentPage-1))}}</td>
                                             <td>
                                                 <div class="w-10 drag-icon">
@@ -86,7 +86,7 @@
 
                                             </tr>
                                             <tr *ngIf="List?.length == 0" class="alert-danger">
-                                                <td colspan="8">
+                                                <td class="message-td" colspan="8">
                                                 <span >
                                                 No data found 
                                                 </span>
@@ -98,7 +98,7 @@
                             </div>
                         </div>
                       
-                        <pagination-controls (click)="getCurrentPage()" (pageChange)="currentPage = $event" id="second"></pagination-controls>
+                        <pagination-controls (click)="getCurrentPage()" (pageChange)="handlePageChange($event)" id="second"></pagination-controls>
                         <!-- <div  class="card-footer pb-0 pt-3">
                             <jw-pagination [items]="items" (changePage)="onChangePage($event)"></jw-pagination>
                         </div> -->

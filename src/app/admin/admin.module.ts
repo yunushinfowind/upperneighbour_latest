@@ -13,6 +13,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { RouterModule } from '@angular/router';
 
 
 
@@ -25,7 +26,8 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
     DragDropModule,
     DragDropModule,
     MatButtonModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    RouterModule
   ]
 })
 export class AdminModule { }

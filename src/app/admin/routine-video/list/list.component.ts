@@ -62,7 +62,10 @@ export class ListComponent implements OnInit {
       }
     )
   }
-
+  handlePageChange(page){
+    this.currentPage = page;
+    this.routneVideoList(page);
+  }
   deleteRoutineVideo(id: any) {
     if (confirm("Are you sure to delete ?")) {
       this.routineService.deleteRoutineVideo(id).subscribe(
@@ -99,10 +102,7 @@ export class ListComponent implements OnInit {
 
   }
 
-  //addSliceNotation() {
-    //console.log(this.modelShow)
-  //}
-
+ 
   addSliceNotation(f: NgForm) {
     console.log(this.notationFile);
     //f.valid && this.notationFile
@@ -166,12 +166,10 @@ export class ListComponent implements OnInit {
     var currArry = this.currentDrageList;
     if (swapLength > 1) {
       if (previousIndex < currentIndex) {
-        console.log('froword')
         for (let i = previousIndex; i <= swapLength; i++) {
           currArry[i] = currArry[i + 1];
         }
       } else {
-        console.log('backword')
         for (let i = previousIndex; i >= currentIndex; i--) {
           currArry[i] = currArry[i - 1];
         }
@@ -188,7 +186,6 @@ export class ListComponent implements OnInit {
   }
 
   getCurrentPage(){
-    this.currentPage = $('#second ul .current span').eq(1).text();
     this.getCurrentList();
   }
   /*to update order of list*/

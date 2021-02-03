@@ -56,19 +56,19 @@
                                             <th>Thumb</th>
                                             <th>Add to SoundSlice</th>
                                             <th>Add Notation File to SoundSlice</th>
-                                            <th>Action</th>
+                                            <th class="last">Action</th>
 
                                         </tr>
                                     </thead>
                                     <tbody cdkDropList class="example-list mt-20" (cdkDropListDropped)="drop($event)">
 
                                         <tr *ngIf="showLoader">
-                                            <td colspan="10">
+                                            <td class="loader-td" colspan="10">
                                                 <i class="fas 3x fa-spinner fa-spin"></i>
                                             </td>
                                         </tr>
 
-                                    <tr cdkDrag id="row_{{routine.id}}" *ngFor="let routine of List | paginate: { itemsPerPage: 10, currentPage: currentPage, id: 'second' } ; let i = index">
+                                    <tr cdkDrag id="row_{{routine.id}}" *ngFor="let routine of List | paginate: { itemsPerPage: 10, currentPage: currentPage, id: 'second' ,totalItems: total} ; let i = index">
                                         <td>{{(i+1)+(10*(currentPage-1))}}</td>
                                         <td>
                                             <div class="w-10 drag-icon">
@@ -87,12 +87,12 @@
                                                     class="fas fa-sync fa-spin"></i></span></button>
                                             <button id="slice_dis_{{routine.id}}" [disabled]="true"  *ngIf="routine.slice_added == 'yes'" class="btn btn-sm btn-primary">Added<span class="badge bg-warning"></span></button>
                                         </td>
-                                        <td>
+                                        <td class="last-artist-video">
                                             <form #notation ="ngForm" id="form_{{routine.id}}">
                                                 <div class="input-group date">
                                                     <input id="notation_file" type="file" class="form-control"
                                                         (change)="onFileChange($event,routine.id)" />
-                                                    <button type="button" (click)="addNotation(notation)" id="notation_dis_{{routine.id}}" [disabled]="true"  *ngIf="routine.notation_file_added == 'yes'" class="btn btn-sm btn-primary">Added</button>
+                                                    <button type="button" (click)="addNotation(notation)" id="notation_dis_{{routine.id}}" [disabled]="true"  *ngIf="routine.notation_file_added == 'yes'" class="btn btn-addedn btn-sm btn-primary">Added</button>
                                                 </div>
 
                                                 <div class="alert-danger" *ngIf="notation.submitted && !notationFile">
@@ -119,7 +119,7 @@
 
                                         </tr>
                                         <tr *ngIf="List?.length == 0" class="alert-danger">
-                                            <td colspan="11">
+                                            <td class="message-td" colspan="11">
                                                 <span>
                                                     No data found
                                                 </span>
@@ -130,7 +130,7 @@
                                 </table>
                             </div>
                         </div>
-                        <pagination-controls (click)="getCurrentPage()" (pageChange)="currentPage = $event" id="second"></pagination-controls>
+                        <pagination-controls (click)="getCurrentPage()" (pageChange)="handlePageChange($event)" id="second"></pagination-controls>
                         <!-- /.card-body -->
                     </div>
                 </div>

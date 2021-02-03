@@ -50,19 +50,19 @@
                                             <th>Description</th>
                                             <th>Thumb</th>
                                             <th>Add to SoundSlice</th>
-                                            <th>Add Notation File to SoundSlice</th>
+                                            <th >Add Notation File to SoundSlice</th>
                                             <th>Action</th>
                                         </tr>
                                     </thead>
                                     <tbody cdkDropList class="example-list mt-20" (cdkDropListDropped)="drop($event)">
 
                                         <tr *ngIf="showLoader">
-                                            <td colspan="9">
+                                            <td class="loader-td" colspan="9">
                                                 <i class="fas 3x fa-spinner fa-spin"></i>
                                             </td>
                                         </tr>
 
-                                        <tr cdkDrag id="row_{{routine.id}}" *ngFor="let routine of List | paginate: { itemsPerPage: 10, currentPage: currentPage, id: 'second' }; let i = index">
+                                        <tr cdkDrag id="row_{{routine.id}}" *ngFor="let routine of List | paginate: { itemsPerPage: 10, currentPage: currentPage, id: 'second' ,totalItems: total }; let i = index">
                                             <td>{{(i+1)+(10*(currentPage-1))}}</td>
                                             <td>
                                                 <div class="w-10 drag-icon">
@@ -84,7 +84,7 @@
                                                 class="badge bg-warning"></span></button>
                                         </td>
 
-                                         <td>
+                                         <td class="last-artist-video">
                                             <form #notation ="ngForm" id="form_{{routine.id}}">
                                                 <div class="input-group date">
                                                     <input id="notation_file" type="file" class="form-control"
@@ -109,18 +109,20 @@
                                             </td>
                                         </tr>
                                         <tr *ngIf="List?.length == 0" class="alert-danger">
-                                            <td colspan="10">
+                                            <td class="message-td" colspan="10">
                                                 <span>
                                                     No data found
                                                 </span>
+                                                
                                             </td>
+                                            
                                         </tr>
 
                                     </tbody>
                                 </table>
                             </div>
                         </div>
-                        <pagination-controls (click)="getCurrentPage()" (pageChange)="currentPage = $event" id="second"></pagination-controls>
+                        <pagination-controls (click)="getCurrentPage()" (pageChange)="handlePageChange($event)" id="second"></pagination-controls>
                         <!-- /.card-body -->
                     </div>
                 </div>

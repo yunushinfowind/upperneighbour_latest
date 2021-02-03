@@ -54,6 +54,11 @@ export class ListComponent implements OnInit {
     )
   }
 
+  chandlePageChange(page){
+    this.currentPage = page;
+    this.routneList(page);
+  }
+
   deleteRoutine(id: any) {
     if (confirm("Are you sure to delete ?")) {
       this.routineService.deleteRoutine(id).subscribe(

@@ -1,14 +1,14 @@
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
   <!-- Brand Logo -->
   <a class="brand-link">
-    <img src="https://framework.infowindtech.biz/upperneigh/uploads/Logo.png" alt="upperneigher"
+    <img src="http://upperneighbormusic.com/upperneighbour_admin/uploads/Logo.png" alt="upperneigher"
       class="brand-image" style="opacity: 1">
     <span class="brand-text font-weight-light">Upper Neighbor</span>
   </a>
 
   <!-- Sidebar -->
   <div class="sidebar">
-    <!-- Sidebar user panel (optional) -->
+    <!-- Sidebar user panel (optional, { type: 'intersection' },false)  -->
     <div class="user-panel mt-3 pb-3 mb-3 d-flex">
       <div class="image">
         <img id="admin_profile" src="{{imageSrc}}" class="img-circle elevation-2" alt="User Image">
@@ -18,19 +18,6 @@
       </div>
     </div>
 
-    <!-- SidebarSearch Form -->
-    <!-- <div class="form-inline">
-        <div class="input-group" data-widget="sidebar-search">
-          <input class="form-control form-control-sidebar" type="search" placeholder="Search" aria-label="Search">
-          <div class="input-group-append">
-            <button class="btn btn-sidebar">
-              <i class="fas fa-search fa-fw"></i>
-            </button>
-          </div>
-        </div>
-      </div> -->
-
-    <!-- Sidebar Menu -->
     <nav class="mt-2">
       <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
         <li class="nav-item menu-open"> 
@@ -42,7 +29,9 @@
           </a>
         </li>
         <li class="nav-item">
-          <a  routerLinkActive='active'   routerLink="admin/artist/list"
+          <a  [class.active]="router.isActive('/admin/artist-video/edit',false)  || router.isActive('/admin/artist-video/view',false) || router.isActive('/admin/artist-video/add',false) || router.isActive('/admin/routine-video/add',false) || router.isActive('/admin/routine/add',false)  
+          || router.isActive('/admin/artist-video/list',false)  || router.isActive('/admin/artist/list',false)  || router.isActive('/admin/routine-video/edit',false)  || router.isActive('/admin/artist/add',false) || router.isActive('/admin/artist/view',false) || router.isActive('/admin/artist/edit',false) 
+          || router.isActive('/admin/routine-video/view',false)  || router.isActive('/admin/routine/list',false)  || router.isActive('/admin/routine/view',false)  || router.isActive('/admin/routine/edit',false)  || router.isActive('/admin/routine-video/list',false) "   routerLink="admin/artist/list"
             class="nav-link">
             <i class="nav-icon fas fas fa-user"></i>
             <p>
@@ -52,7 +41,9 @@
         </li>
        
         <li class="nav-item">
-          <a  routerLinkActive='active' routerLink="admin/blog/list"
+          <a [class.active]="router.isActive('/admin/blog/edit',false)  || router.isActive('/admin/blog/view',false) || router.isActive('/admin/blog/add',false)  
+          || router.isActive('/admin/blog/list',false) "
+          routerLink="admin/blog/list"
             class="nav-link">
             <i class="nav-icon fas fas fa-book"></i>
             <p>
@@ -61,7 +52,10 @@
           </a>
         </li>
         <li class="nav-item">
-          <a  routerLinkActive='active' routerLink="admin/user/list"
+          <!-- {{router.isActive('/admin/user/list',false)}} -->
+          <!-- {{router.isActive(['null','/admin/user/list'],false)}} -->
+          <a   [class.active]="router.isActive('/admin/user/edit',false)  || router.isActive('/admin/user/view',false)  
+          || router.isActive('/admin/user/list',false) " routerLink="admin/user/list"
             class="nav-link">
             <i class="nav-icon fas fas fa-user"></i>
             <p>
@@ -69,9 +63,9 @@
             </p>
           </a>
         </li>
-        <!-- [class.active]="router.isActive('/admin/artist-video/edit') || router.isActive('/admin/artist-video/view') 
-          || router.isActive('/admin/artist-video/list') || router.isActive('/admin/artist/list') || router.isActive('/admin/routine-video/edit') 
-          || router.isActive('/admin/routine-video/view') || router.isActive('/admin/routine/list') || router.isActive('/admin/routine/view') || router.isActive('/admin/routine/edit') || router.isActive('/admin/routine-video/list')" -->
+        <!-- [class.active]="router.isActive('/admin/artist-video/edit',false)  || router.isActive('/admin/artist-video/view',false)  
+          || router.isActive('/admin/artist-video/list',false)  || router.isActive('/admin/artist/list',false)  || router.isActive('/admin/routine-video/edit',false)  
+          || router.isActive('/admin/routine-video/view',false)  || router.isActive('/admin/routine/list',false)  || router.isActive('/admin/routine/view',false)  || router.isActive('/admin/routine/edit',false)  || router.isActive('/admin/routine-video/list',false) " -->
         
        
         <!-- <li class="nav-item">
@@ -117,7 +111,7 @@
           </a>
         </li> 
 
-        <!-- <li class="nav-item" (click)="clickEvent()"  
+        <!-- <li class="nav-item" (click, { type: 'intersection' },false) ="clickEvent(, { type: 'intersection' },false) "  
     [ngClass]="status ? 'menu-is-opening menu-open' : ''">
             <a class="nav-link">
               <i class="nav-icon fas fa-edit"></i>
