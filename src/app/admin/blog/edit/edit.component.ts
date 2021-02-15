@@ -50,15 +50,15 @@ export class EditComponent implements OnInit {
 
   blogSubmit(f: NgForm) {
     console.log(f.value)
-    if (!this.model.editorData) {
-      this.toastr.error('Description is required')
-      return
-    }
+    // if (!this.model.editorData) {
+    //   this.toastr.error('Description is required')
+    //   return
+    // }
 
-    if (f.valid && this.model.editorData) {
+    if (f.valid) {
       const formData = new FormData();
       formData.append('image', (this.model.image?this.model.image:''));
-      formData.append('description', this.model.editorData);
+      // formData.append('description', this.model.editorData);
       formData.append('title', this.model.title);
       formData.append('url', this.model.url);
       formData.append('id', this.blogDetail.id);

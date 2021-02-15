@@ -35,11 +35,11 @@ export class AddComponent implements OnInit {
 
   blogSubmit(f: NgForm) {
 
-    if (f.valid && this.model.image && this.model.editorData) {
+    if (f.valid && this.model.image) {
       this.showLoader = true;
       const formData = new FormData();
       formData.append('image', this.model.image);
-      formData.append('description', this.model.editorData);
+      // formData.append('description', this.model.editorData);
       formData.append('title', this.model.title);
       formData.append('url', this.model.url);
       console.log(this.model.image)
