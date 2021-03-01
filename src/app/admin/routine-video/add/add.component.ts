@@ -284,7 +284,7 @@ export class AddComponent implements OnInit {
             $('#loader_submit').hide();
             $('#submit_button').attr('disabled', 'false');
             // this.router.navigate(['/admin/routine-video/list', this.routine_id, this.user_id]);
-            window.location.href = this.BASEURL + "/admin/routine-video/list/" + this.routine_id + '/' + this.user_id
+            // window.location.href = this.BASEURL + "/admin/routine-video/list/" + this.routine_id + '/' + this.user_id
           } else {
             this.toastr.error(result.message)
           }
