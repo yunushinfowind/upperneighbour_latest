@@ -70,6 +70,7 @@ export class AddComponent implements OnInit {
     return this.fb.group({
       video_title: ['', Validators.required],
       video_description: ['', [Validators.required]],
+      content_type:['', [Validators.required]],
       video_type: ['', [Validators.required]],
       /*video: [
             '', 
@@ -261,6 +262,7 @@ export class AddComponent implements OnInit {
         let postData = {
           "video_title": data[i].video_title,
           "video_description": data[i].video_description,
+          "content_type": data[i].content_type,
           "user_id": this.user_id,
           "routine_id": this.routine_id,
           "embed_url": data[i].video_url,

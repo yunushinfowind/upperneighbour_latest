@@ -41,7 +41,15 @@
                                         </div>
                                         <div class="form-group">
                                             <label>Routine level:</label>
-                                            <input type="text" required name="routine_level" [(ngModel)]="model.routine_level" #routine_level="ngModel" class="form-control" placeholder="Routine level">
+                                            <!-- <input type="text" required name="routine_level" [(ngModel)]="model.routine_level" #routine_level="ngModel" class="form-control" placeholder="Routine level"> -->
+                                            <select  required name="routine_level" [(ngModel)]="model.routine_level" #routine_level="ngModel" class="form-control">
+                                                <option value="">Select Level</option>
+                                                <option value="0">Beginner</option>
+                                                <option value="1">1</option>
+                                                <option value="2">2</option>
+                                                <option value="3">3</option>
+                                                <option value="4">4</option>
+                                            </select>
                                             <div class="alert-danger" *ngIf="(routine_level.touched && !routine_level.valid)||(routineForm.submitted && !routine_level.valid)">
                                                 <div *ngIf="routine_level.errors.required">Routine level is required.</div>
                                             </div>
