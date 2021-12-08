@@ -22,7 +22,9 @@ export class EditComponent implements OnInit {
     video: '',
     thumb: '',
     embed_url:'',
-    video_type:''
+    video_type:'',
+    video_level:'',
+    content_type:''
   }
   imageSrc: any;
   showLoader: boolean = false;
@@ -53,8 +55,10 @@ export class EditComponent implements OnInit {
         this.model.video_description = result.data.video_description;
         this.model.embed_url = result.data.video_file_name;
         this.model.video_type = result.data.video_type;
+        this.model.video_level = result.data.video_level;
         this.user_id = result.data.user_id;
         this.imageSrc = result.data.video_thumb;
+        this.model.content_type = result.data.content_type;
       }
     })
   }
@@ -68,8 +72,10 @@ export class EditComponent implements OnInit {
       formData.append('video_description', this.model.video_description);
       formData.append('embed_url', this.model.embed_url);
       formData.append('video_type', this.model.video_type);
+      formData.append('video_level', this.model.video_level);
       formData.append('video', this.model.video);
       formData.append('thumb', this.model.thumb);
+      formData.append('content_type', this.model.content_type);
       
       formData.append('id', this.video_id);
       this.artistVideoService.editArtistVideo(formData).subscribe(result => {

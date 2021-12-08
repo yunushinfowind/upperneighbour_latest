@@ -33,11 +33,34 @@
                                             </div>
                                         </div>
                                         <div class="form-group">
+                                            <label>Routine level:</label>
+                                            <select  required name="video_level" [(ngModel)]="model.video_level" #video_level="ngModel" class="form-control" >
+                                                
+                                                <option value="">Select Level</option>
+                                                <option value="0">Beginner</option>
+                                                <option value="1">1</option>
+                                                <option value="2">2</option>
+                                                <option value="3">3</option>
+                                                <option value="4">4</option>
+                                            </select>
+                                            <div class="alert-danger" *ngIf="(video_level.touched && !video_level.valid)||(routineForm.submitted && !video_level.valid)">
+                                                <div *ngIf="video_level.errors.required">Video level is required.</div>
+                                            </div>
+                                            
+                                        </div>
+                                        <div class="form-group">
                                             <label>Video Description:</label>
                                             <input type="text" required name="video_description" [(ngModel)]="model.video_description" #video_description="ngModel" class="form-control" placeholder="video description">
                                             <div class="alert-danger" *ngIf="(video_description.touched && !video_description.valid)||(routineForm.submitted && !video_description.valid)">
                                                 <div *ngIf="video_description.errors.required">Routine description is required.</div>
                                             </div>
+                                        </div>
+                                        <div class="form-group">
+                                            Content type :
+                                            <select name="content_type" [(ngModel)]="model.content_type" #content_type="ngModel" class="text-row form-control">
+                                                <option value="premium">Premium</option>
+                                                <option value="free">Free</option>
+                                            </select>
                                         </div>
                                         <div class="bootstrap-timepicker">
                                            

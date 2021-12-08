@@ -25,6 +25,7 @@ export class ErrorInterceptorService implements HttpInterceptor {
        
         return next.handle(request).pipe(
             tap(evt => {
+                console.log('evt',evt)
                 if (evt instanceof HttpResponse) {
                     if (evt.body && evt.body.type == 'token_invalid') {
                         this.toastr.error('Sorry , Session has been expired.')
@@ -35,7 +36,7 @@ export class ErrorInterceptorService implements HttpInterceptor {
                 }
             }),
             catchError(err => {
-                console.log(err)
+                console.log('err',err)
                 if (err.status === 401) {
                     // auto logout if 401 response returned from api
                     this.authenticationService.logout();

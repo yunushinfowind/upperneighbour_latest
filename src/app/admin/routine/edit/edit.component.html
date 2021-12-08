@@ -41,12 +41,37 @@
                                             </div>
                                         </div>
                                         <div class="form-group">
+                                            <label>Content type :</label>
+                                            <select required name="content_type" [(ngModel)]="model.content_type" #content_type="ngModel" class="text-row form-control">
+                                                <option value="premium">Premium</option>
+                                                <option value="free">Free</option>
+                                            </select>
+                                            <div class="alert-danger" *ngIf="(content_type.touched && !content_type.valid)||(routineForm.submitted && !content_type.valid)">
+                                                <div *ngIf="content_type.errors.required">Content type is required.</div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Routine level:</label>
+                                            <!-- <input type="text" required name="routine_level" [(ngModel)]="model.routine_level" #routine_level="ngModel" class="form-control" placeholder="Routine level"> -->
+                                            <select  required name="routine_level" [(ngModel)]="model.routine_level" #routine_level="ngModel" class="form-control">
+                                                <option value="">Select Level</option>
+                                                <option value="0">Beginner</option>
+                                                <option value="1">1</option>
+                                                <option value="2">2</option>
+                                                <option value="3">3</option>
+                                                <option value="4">4</option>
+                                            </select>
+                                            <div class="alert-danger" *ngIf="(routine_level.touched && !routine_level.valid)||(routineForm.submitted && !routine_level.valid)">
+                                                <div *ngIf="routine_level.errors.required">Routine level is required.</div>
+                                            </div>
+                                        </div>
+                                        <!-- <div class="form-group">
                                             <label>Routine level:</label>
                                             <input type="text" required name="routine_level" [(ngModel)]="model.routine_level" #routine_level="ngModel" class="form-control" placeholder="routine level">
                                             <div class="alert-danger" *ngIf="(routine_level.touched && !routine_level.valid)||(routineForm.submitted && !routine_level.valid)">
                                                 <div *ngIf="routine_level.errors.required">Routine level is required.</div>
                                             </div>
-                                        </div>
+                                        </div> -->
                                         <!-- <div class="form-group">
                                             <label>Artist:</label>
                                             

@@ -21,7 +21,8 @@ export class EditComponent implements OnInit {
     video: '',
     thumb: '',
     embed_url:'',
-    video_type:''
+    video_type:'',
+    content_type:''
   }
   imageSrc: any;
   showLoader: boolean = false;
@@ -53,7 +54,8 @@ export class EditComponent implements OnInit {
         this.model.video_type = result.data.video_type;
         this.model.user_id = result.data.user_id;
         this.imageSrc = result.data.video_thumb;
-        this.routine_id = result.data.routine_id
+        this.routine_id = result.data.routine_id;
+        this.model.content_type = result.data.content_type;
       }
     })
   }
@@ -87,6 +89,8 @@ export class EditComponent implements OnInit {
       formData.append('video', this.model.video);
       formData.append('thumb', this.model.thumb);
       formData.append('id', this.video_id);
+      formData.append('content_type', this.model.content_type);
+      
       this.routineService.editRoutineVideo(formData).subscribe(result => {
         if (result.success) {
           this.showLoader = false;

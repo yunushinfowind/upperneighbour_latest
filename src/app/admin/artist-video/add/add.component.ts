@@ -23,7 +23,8 @@ export class AddComponent implements OnInit {
     video: '',
     artist_name: '',
     video_url: '',
-    video_type: ''
+    video_type: '',
+    video_level:''
   }
   imageSrc: any;
   showLoader: boolean = false;
@@ -72,6 +73,8 @@ export class AddComponent implements OnInit {
       video_title: ['', Validators.required],
       video_description: ['', [Validators.required]],
       video_type: ['', [Validators.required]],
+      video_level : ['', [Validators.required]],
+      content_type:['', [Validators.required]],
       //video: ['', [Validators.required]],
       video_url: [""],
       thumb: [""],
@@ -244,7 +247,9 @@ export class AddComponent implements OnInit {
           "user_id": this.user_id,
           "routine_id": this.routine_id,
           "embed_url": data[i].video_url,
-          "video_type": data[i].video_type
+          "video_type": data[i].video_type,
+          "video_level" : data[i].video_level,
+          "content_type": data[i].content_type,
         }
         console.log(postData);
         formData.append('data[]', JSON.stringify(postData));

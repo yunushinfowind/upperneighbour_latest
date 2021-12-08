@@ -50,6 +50,30 @@
                                                     <div class="alert-danger" *ngIf="quantity.controls.video_description.errors.required">Description is required</div>
                                                 </div>
                                             </td>
+                                            <td>
+                                                Content type :
+                                                <select formControlName="content_type" class="text-row form-control">
+                                                    <option value="premium">Premium</option>
+                                                    <option value="free">Free</option>
+                                                </select>
+                                            </td>
+                                            <td>
+                                            <div class="form-group">
+                                                <label>Routine level:</label>
+                                                <select  formControlName="video_level" required name="video_level" class="form-control">
+                                                    <option value="">Select Level</option>
+                                                    <option value="0">Beginner</option>
+                                                    <option value="1">1</option>
+                                                    <option value="2">2</option>
+                                                    <option value="3">3</option>
+                                                    <option value="4">4</option>
+                                                </select>
+                                                <div *ngIf="submitted && quantity.controls.video_level.errors">
+                                                    <div class="alert-danger" *ngIf="quantity.controls.video_level.errors.required">Video level is required</div>
+                                                </div>
+                                                
+                                            </div>
+                                            </td>
                                              <td>
                                                 <label>Video Type:</label>
                                                 <div ng-init="video_type=video" class="mb-2">

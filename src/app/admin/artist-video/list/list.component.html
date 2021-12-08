@@ -45,7 +45,9 @@
                                             <th>S.N.</th>
                                             <th>Drag Icon</th>
                                             <th>Artist Name</th>
+                                            <th>Content Type</th>
                                             <th>Video Title</th>
+                                            <th>Video Level</th>
                                             <th>Duration</th>
                                             <th>Description</th>
                                             <th>Thumb</th>
@@ -70,7 +72,9 @@
                                                 </div>
                                             </td>
                                             <td>{{routine.user.fullname}}</td>
+                                            <td>{{routine.content_type}}</td>
                                             <td>{{routine.video_title}}</td>
+                                            <td>{{(routine.video_level==0)?'Beginner':routine.video_level}}</td>
                                             <td>{{routine.duration}}</td>
                                             <td>{{routine.video_description}}</td>
                                             <td><img src="{{routine.video_thumb}}" width="100px" height="50px"></td>

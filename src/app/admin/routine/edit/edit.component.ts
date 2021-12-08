@@ -16,7 +16,8 @@ export class EditComponent implements OnInit {
     routine_description: '',
     routine_level: '',
     user_id: '',
-    image: ''
+    image: '',
+    content_type:''
   }
   imageSrc: any;
   showLoader: boolean = false;
@@ -43,6 +44,7 @@ export class EditComponent implements OnInit {
         this.model.routine_level = result.data.routine_level;
         this.model.user_id = result.data.user_id;
         this.imageSrc = result.data.image;
+        this.model.content_type = result.data.content_type;
       }
     })
   }
@@ -72,6 +74,7 @@ export class EditComponent implements OnInit {
       formData.append('user_id', this.user_id);
       formData.append('image', this.model.image);
       formData.append('id', this.Id);
+      formData.append('content_type', this.model.content_type);
       this.routineService.editRoutine(formData).subscribe(result => {
         if (result.success) {
           this.showLoader = false;

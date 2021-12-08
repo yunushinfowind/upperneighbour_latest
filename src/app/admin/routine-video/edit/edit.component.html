@@ -40,6 +40,13 @@
                                                 <div *ngIf="video_description.errors.required">Routine description is required.</div>
                                             </div>
                                         </div>
+                                        <div class="form-group">
+                                            Content type :
+                                            <select name="content_type" [(ngModel)]="model.content_type" #content_type="ngModel" class="text-row form-control">
+                                                <option value="premium">Premium</option>
+                                                <option value="free">Free</option>
+                                            </select>
+                                        </div>
                                         <div class="bootstrap-timepicker">
                                             
                                             <div class="form-group" *ngIf="this.model.video_type!='embed_url'">

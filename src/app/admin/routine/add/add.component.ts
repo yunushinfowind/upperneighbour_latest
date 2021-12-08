@@ -17,7 +17,8 @@ export class AddComponent implements OnInit {
     routine_description: '',
     routine_level:'',
     user_id : '',
-    image : ''
+    image : '',
+    content_type:""
   }
   imageSrc: any;
   showLoader:boolean=false;
@@ -61,6 +62,7 @@ export class AddComponent implements OnInit {
       formData.append('routine_level', this.model.routine_level);
       formData.append('user_id', this.user_id);
       formData.append('image', this.model.image);
+      formData.append('content_type', this.model.content_type);
       this.routineService.addRoutine(formData).subscribe(result => {
         if (result.success) {
           this.showLoader = false;
