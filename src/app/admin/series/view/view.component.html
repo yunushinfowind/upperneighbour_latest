@@ -1,0 +1,53 @@
+
+        <div class="content-wrapper">
+            <section class="content-header">
+                <div class="container-fluid">
+                    <div class="row mb-2">
+                        <div class="col-sm-6">
+                            <h1>Series View</h1>
+                        </div>
+                        <div class="col-sm-6">
+                            <ol class="breadcrumb float-sm-right">
+                                <li class="breadcrumb-item"><a [routerLink]="['/admin/series/list',routineDetail.user.id]">Series</a></li>
+                                <li class="breadcrumb-item active">Series view</li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section class="content">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="card card-primary">
+                                <div class="card-header">
+                                    <h3 class="card-title">Detail</h3>
+                                </div>
+                                <div class="card-body">
+                                    <div>
+                                        <strong>Series Name:</strong> <p>{{routineDetail.series_name}}</p>
+                                    </div>
+                                     <hr />
+                                    <div>
+                                        <strong>Series Description:</strong> <p>{{routineDetail.series_description}}</p>
+                                    </div>
+                                     <hr />
+                                    <div>
+                                        <strong>Series Level:</strong> <p>{{routineDetail.series_level}}</p>
+                                    </div>
+                                     <hr />
+                                    <div>
+                                        <strong>Artist:</strong> <p>{{routineDetail.user.fullname}}</p>
+                                    </div>
+                                     <hr />
+                                    <div>
+                                        <strong>Image:</strong> <p><img [src]="routineDetail.image"  style="height: 100px; width:100px"></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+       

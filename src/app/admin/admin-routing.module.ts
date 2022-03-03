@@ -12,6 +12,8 @@ import { ListComponent } from './teacher/list/list.component';
 import { TeacherModule } from './teacher/teacher.module';
 import { UserModule } from './user/user.module';
 import { EditProfileComponent } from './edit-profile/edit-profile.component';
+import { SeriesModule } from './series/series.module';
+import { SeriesVideoModule } from './series-video/series-video.module';
 
 
 const routes: Routes = [
@@ -25,6 +27,12 @@ const routes: Routes = [
   },
   {
     path:'routine',loadChildren:() =>RoutineModule
+  },
+  {
+    path:'series',loadChildren:() =>SeriesModule
+  },
+  {
+    path:'series-video',loadChildren:() =>SeriesVideoModule
   },
   {
     path:'routine-video',loadChildren:() =>RoutineVideoModule

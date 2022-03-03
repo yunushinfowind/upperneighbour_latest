@@ -4,14 +4,16 @@
 
 export const environment = {
   production: true,
-  // baseUrl : "http://upperneighbormusic.com:8080/api",
+  // baseUrl : "https://upperneighbormusic.com:8080/api",
+  baseUrl : "https://dashboard.upperneighbormusic.com/api",
+  
   // baseUrl : "http://framework.infowindtech.biz:8000/api"
-  baseUrl : "http://localhost:8080/api",
-  BASEURL : "http://localhost:4200",
+  // baseUrl : "http://localhost:8080/api",
+  // BASEURL : "http://localhost:4200",
 
   // baseUrl : "http://18.189.219.28:8000/api",
   // BASEURL : "http://18.189.219.28:8000",
-  // BASEURL : "http://upperneighbormusic.com:8080"
+  BASEURL : "https://dashboard.upperneighbormusic.com"
 };
 
 /*

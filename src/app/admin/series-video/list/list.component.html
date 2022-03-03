@@ -1,0 +1,142 @@
+<div class="content-wrapper">
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1>Series Video List</h1>
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a [routerLink]="['/admin/artist/list']">Artist List</a></li>
+                        <li class="breadcrumb-item"><a [routerLink]="['/admin/series/list', user_id]">Series List</a>
+                        </li>
+                        <li class="breadcrumb-item"><a class="btn btn-sm btn-primary btn-block"
+                                [routerLink]="['/admin/series-video/add', series_id , user_id]">Add Series Video</a>
+                        </li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">Series Video List</h3>
+                            <div class="card-tools">
+                                <button  (click)="resetSearch()" id="search_refresh" type="button"  class="btn btn-primary">
+                                    <i class="fas fa-redo-alt"></i>
+                                  </button>
+                                <div class="input-group input-group-sm" style="width: 160px;">
+                                    <input type="text" name="table_search" class="table_search form-control float-right"
+                                        placeholder="Search By Title">
+                                    <div class="input-group-append">
+                                        <button (click)="seriesVideoList(1)" type="button" class="btn btn-default">
+                                            <i class="fas fa-search"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- /.card-header -->
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table datatable class="table table-sm">
+                                    <thead>
+                                        <tr>
+                                            <th>S. N.</th>
+                                            <th>Drag Icon</th>
+                                            <th>Series</th>
+                                            <th>Content Type</th>
+                                            <th>Artist</th>
+                                            <th>Video Title</th>
+                                            <th>Duration</th>
+                                            <th>Description</th>
+                                            <th>Thumb</th>
+                                            <th>Add to SoundSlice</th>
+                                            <th>Add Notation File to SoundSlice</th>
+                                            <th class="last">Action</th>
+
+                                        </tr>
+                                    </thead>
+                                    <tbody cdkDropList class="example-list mt-20" (cdkDropListDropped)="drop($event)">
+
+                                        <tr *ngIf="showLoader">
+                                            <td class="loader-td" colspan="10">
+                                                <i class="fas 3x fa-spinner fa-spin"></i>
+                                            </td>
+                                        </tr>
+
+                                    <tr cdkDrag id="row_{{series.id}}" *ngFor="let series of List | paginate: { itemsPerPage: 10, currentPage: currentPage, id: 'second' ,totalItems: total} ; let i = index">
+                                        <td>{{(i+1)+(10*(currentPage-1))}}</td>
+                                        <td>
+                                            <div class="w-10 drag-icon">
+                                              <i class="fas fa-bars"></i>
+                                            </div>
+                                        </td>
+                                        <td>{{series.series.series_name}}</td>
+                                        <td>{{series.content_type}}</td>
+                                        <td>{{series.user.fullname}}</td>
+                                        <td>{{series.video_title}}</td>
+                                        <td>{{series.video_duration}}</td>
+                                        <td class="description">{{series.video_description}}</td>
+                                        <td><img src="{{series.video_thumb}}" width="100px" height="50px"></td>
+                                        <td>
+                                            <button id="slice_{{series.id}}" *ngIf="series.slice_added == 'no'" class="btn btn-sm btn-primary" 
+                                                (click)="createVideoSliceRecordong(series.id , series.series.seriesFolder.folder_info.id)">Add Slice<span id="loader_{{series.id}}" style="display: none;"> <i
+                                                    class="fas fa-sync fa-spin"></i></span></button>
+                                            <button id="slice_dis_{{series.id}}" [disabled]="true"  *ngIf="series.slice_added == 'yes'" class="btn btn-sm btn-primary">Added<span class="badge bg-warning"></span></button>
+                                        </td>
+                                        <td class="last-artist-video">
+                                            <form #notation ="ngForm" id="form_{{series.id}}">
+                                                <div class="input-group date">
+                                                    <input id="notation_file" type="file" class="form-control"
+                                                        (change)="onFileChange($event,series.id)" />
+                                                    <button type="button" (click)="addNotation(notation)" id="notation_dis_{{series.id}}" [disabled]="true"  *ngIf="series.notation_file_added == 'yes'" class="btn btn-addedn btn-sm btn-primary">Added</button>
+                                                </div>
+
+                                                <div class="alert-danger" *ngIf="notation.submitted && !notationFile">
+                                                    <div>Notation File is required.</div>
+                                                </div>
+                                                
+                                                <button id="notation_{{series.id}}" *ngIf="series.notation_file_added == 'no'" class="btn btn-sm btn-primary" [class.disabled]="!notation.valid"
+                                                    (click)="addSliceNotation()">Add Notation<span id="loader_notation_{{series.id}}" style="display: none;"> <i
+                                                        class="fas fa-sync fa-spin"></i></span><span
+                                                        class="badge bg-warning"></span>
+                                                </button>
+                                               
+                                            </form>
+                                        </td>
+                                        <td>
+                                            <a class="btn btn-sm btn-outline-primary" [routerLink]="['/admin/series-video/view',series.id]"><i
+                                                    class="fas fa-eye"></i></a>
+                                            <a class="btn btn-sm btn-outline-danger" (click)="deleteSeriesVideo(series.id)"><i class="fas fa-trash"
+                                                ></i></a>
+                                            <a class="btn btn-sm btn-outline-info" [routerLink]="['/admin/series-video/edit',series.id,series.user_id]"><i
+                                                    class="fas fa-pencil-alt"></i></a>
+
+                                            </td>
+
+                                        </tr>
+                                        <tr *ngIf="List?.length == 0" class="alert-danger">
+                                            <td class="message-td" colspan="11">
+                                                <span>
+                                                    No data found
+                                                </span>
+                                            </td>
+                                        </tr>
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <pagination-controls (click)="getCurrentPage()" (pageChange)="handlePageChange($event)" id="second"></pagination-controls>
+                        <!-- /.card-body -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
