@@ -64,8 +64,8 @@
                                             </td>
                                         </tr>
 
-                                        <tr cdkDrag id="row_{{routine.id}}" *ngFor="let routine of List | paginate: { itemsPerPage: 10, currentPage: currentPage, id: 'second' ,totalItems: total }; let i = index">
-                                            <td>{{(i+1)+(10*(currentPage-1))}}</td>
+                                        <tr cdkDrag id="row_{{routine.id}}" *ngFor="let routine of List | paginate: { itemsPerPage: 50, currentPage: currentPage, id: 'second' ,totalItems: total }; let i = index">
+                                            <td>{{(i+1)+(50*(currentPage-1))}}</td>
                                             <td>
                                                 <div class="w-10 drag-icon">
                                                   <i class="fas fa-bars"></i>
